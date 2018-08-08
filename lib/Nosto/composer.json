@@ -1,0 +1,45 @@
+{
+  "name": "nosto/php-sdk",
+  "description": "PHP SDK for developing Nosto modules for e-commerce platforms",
+  "license": "BSD-3-Clause",
+  "require-dev": {
+    "codeception/base": "2.2.9",
+    "codeception/specify": "^0.4.6",
+    "phpmd/phpmd": "^2.6",
+    "squizlabs/php_codesniffer": "^2.6",
+    "etsy/phan": "0.8.0",
+    "sebastian/phpcpd": "^3.0",
+    "phing/phing": "2.*",
+    "codeception/c3": "^2.0",
+    "symfony/console": "3.2.8",
+    "wimg/php-compatibility": "^8.0"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/magento/marketplace-eqp"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Nosto\\": "src"
+    },
+    "files": [
+      "src/bootstrap.php"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "phpseclib/phpseclib": "2.0.*",
+    "vlucas/phpdotenv": "2.4.0"
+  },
+  "scripts-dev": {
+    "post-install-cmd": "if [ -f ./vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wimg/php-compatibility; fi",
+    "post-update-cmd" : "if [ -f ./vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wimg/php-compatibility; fi"
+  }
+}
