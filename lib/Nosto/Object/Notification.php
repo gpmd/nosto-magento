@@ -34,17 +34,13 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\NostoException;
-use Nosto\Types\NotificationInterface;
 
 /**
- * Implementation for NotificationInterface
+ * Implementation for Nosto_Types_NotificationInterface
  * @codeCoverageIgnore
  */
-class Notification extends AbstractObject implements NotificationInterface
+class Nosto_Object_Notification extends Nosto_AbstractObject implements Nosto_Types_NotificationInterface
 {
     /**
      * @var int|string unique id of the store
@@ -201,12 +197,12 @@ class Notification extends AbstractObject implements NotificationInterface
      * Adds a message attribute
      *
      * @param int|string $messageAttribute
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     public function addMessageAttribute($messageAttribute)
     {
         if (!is_scalar($messageAttribute)) {
-            throw new NostoException('Message attribute must be a scalar value');
+            throw new Nosto_NostoException('Message attribute must be a scalar value');
         }
         $this->messageAttributes[] = $messageAttribute;
     }

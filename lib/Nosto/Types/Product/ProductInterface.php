@@ -34,13 +34,13 @@
  *
  */
 
-namespace Nosto\Types\Product;
+
 
 /**
  * Interface for the meta data of a product.
  * This is used when making product re-crawl API requests and product history exports to Nosto.
  */
-interface ProductInterface
+interface Nosto_Types_Product_ProductInterface
 {
     const IN_STOCK = 'InStock';
     const OUT_OF_STOCK = 'OutOfStock';
@@ -265,7 +265,7 @@ interface ProductInterface
     /**
      * Returns the product variations if any exist.
      *
-     * @return VariationInterface[] the variations.
+     * @return Nosto_Types_Product_VariationInterface[] the variations.
      */
     public function getVariations();
 }

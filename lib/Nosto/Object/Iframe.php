@@ -34,16 +34,13 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\Types\IframeInterface;
 
 /**
  * Meta data class which holds information to be sent to the Nosto account
  * configuration iframe.
  */
-class Iframe extends AbstractObject implements IframeInterface
+class Nosto_Object_Iframe extends Nosto_AbstractObject implements Nosto_Types_IframeInterface
 {
     /**
      * @var string the name of the platform the iframe is used on.

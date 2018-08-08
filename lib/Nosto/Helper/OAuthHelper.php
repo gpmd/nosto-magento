@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,22 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\Nosto;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Types\OAuthInterface;
 
 /**
  * OAuth helper class for working with common OAuth related functionality
  */
-class OAuthHelper extends AbstractHelper
+class Nosto_Helper_OAuthHelper extends Nosto_Helper_AbstractHelper
 {
 
     const PATH_AUTH = '?client_id={cid}&redirect_uri={uri}&response_type=code&scope={sco}&lang={iso}'; // @codingStandardsIgnoreLine
@@ -51,14 +47,14 @@ class OAuthHelper extends AbstractHelper
     /**
      * Returns the authorize url to the oauth2 server.
      *
-     * @param OAuthInterface $params
+     * @param Nosto_Types_OAuthInterface $params
      * @return string the url.
      */
-    public static function getAuthorizationUrl(OAuthInterface $params)
+    public static function getAuthorizationUrl(Nosto_Types_OAuthInterface $params)
     {
-        $oauthBaseUrl = Nosto::getOAuthBaseUrl();
+        $oauthBaseUrl = Nosto_Nosto::getOAuthBaseUrl();
 
-        return HttpRequest::buildUri(
+        return Nosto_Request_Http_HttpRequest::buildUri(
             $oauthBaseUrl . self::PATH_AUTH,
             array(
                 '{cid}' => $params->getClientId(),

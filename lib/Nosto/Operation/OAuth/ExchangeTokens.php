@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,65 +28,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Operation\OAuth;
 
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Object\NostoOAuthToken;
-use Nosto\Object\Signup\Account;
-use Nosto\Operation\AbstractOperation;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Types\OAuthInterface;
-use Nosto\Types\Signup\AccountInterface;
 
 /**
- * Handles exchanging the authorization token for the API tokes from Nosto
+ * Handles exchanging the authorization token for the API tokes from Nosto_Nosto
  */
-class ExchangeTokens extends AbstractOperation
+class Nosto_Operation_OAuth_ExchangeTokens extends Nosto_Operation_AbstractOperation
 {
     /**
-     * @var OAuthInterface the Oauth meta data params
+     * @var Nosto_Types_OAuthInterface the Oauth meta data params
      */
     private $meta;
 
     /**
      * Constructor.
      *
-     * Accepts the Nosto account for which the service is to operate on.
-     * @param OAuthInterface $meta the oauth meta data params
+     * Accepts the Nosto_Nosto account for which the service is to operate on.
+     * @param Nosto_Types_OAuthInterface $meta the oauth meta data params
      */
-    public function __construct(OAuthInterface $meta)
+    public function __construct(Nosto_Types_OAuthInterface $meta)
     {
         $this->meta = $meta;
     }
 
     /**
-     * Sends a POST request to delete an account for a store in Nosto
+     * Sends a POST request to delete an account for a store in Nosto_Nosto
      *
-     * @param NostoOAuthToken $token string the oauth access code.
-     * @return AccountInterface the configured account
-     * @throws NostoException on failure.
+     * @param Nosto_Object_NostoOAuthToken $token string the oauth access code.
+     * @return Nosto_Types_Signup_AccountInterface the configured account
+     * @throws Nosto_NostoException on failure.
      */
-    public function exchange(NostoOAuthToken $token)
+    public function exchange(Nosto_Object_NostoOAuthToken $token)
     {
-        $request = new HttpRequest();
+        $request = new Nosto_Request_Http_HttpRequest();
         $request->setContentType(self::CONTENT_TYPE_URL_FORM_ENCODED);
-        $request->setPath(HttpRequest::PATH_OAUTH_SYNC);
+        $request->setPath(Nosto_Request_Http_HttpRequest::PATH_OAUTH_SYNC);
         $request->setQueryParams(array('access_token' => $token->getAccessToken()));
         $response = $request->get();
         if ($response->getCode() !== 200) {
-            Nosto::throwHttpException($request, $response);
+            Nosto_Nosto::throwHttpException($request, $response);
         }
 
-        $tokens = Token::parseTokens($response->getJsonResult(true), 'api_');
-        $account = new Account($token->getMerchantName());
+        $tokens = Nosto_Request_Api_Token::parseTokens($response->getJsonResult(true), 'api_');
+        $account = new Nosto_Object_Signup_Account($token->getMerchantName());
         $account->setTokens($tokens);
         return $account;
     }

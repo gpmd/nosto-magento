@@ -34,9 +34,9 @@
  *
  */
 
-namespace Nosto\Types;
 
-interface PersonInterface
+
+interface Nosto_Types_PersonInterface
 {
     /**
      * The first name of the user
@@ -79,11 +79,4 @@ interface PersonInterface
      * @return string|null
      */
     public function getCountry();
-
-    /**
-     * The opt-in status for user
-     *
-     * @return boolean
-     */
-    public function getMarketingPermission();
 }

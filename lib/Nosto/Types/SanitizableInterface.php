@@ -34,9 +34,9 @@
  *
  */
 
-namespace Nosto\Types;
 
-interface SanitizableInterface
+
+interface Nosto_Types_SanitizableInterface
 {
     /**
      * @return mixed return a clean object that doesn't have sensitive information for tagging

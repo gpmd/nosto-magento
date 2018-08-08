@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Order;
 
-use Nosto\AbstractObject;
-use Nosto\Types\Order\StatusInterface;
 
 /**
  * Model class containing information about the OrderConfirm status of an OrderConfirm
  */
-class OrderStatus extends AbstractObject implements StatusInterface
+class Nosto_Object_Order_OrderStatus extends Nosto_AbstractObject implements Nosto_Types_Order_StatusInterface
 {
     /**
      * @var string the OrderConfirm status code as flagged via the payment provider
@@ -60,7 +57,7 @@ class OrderStatus extends AbstractObject implements StatusInterface
     private $date;
 
     /**
-     * OrderStatus constructor
+     * Nosto_Object_Order_OrderStatus constructor
      */
     public function __construct()
     {

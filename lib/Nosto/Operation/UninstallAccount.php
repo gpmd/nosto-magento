@@ -34,33 +34,27 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\NostoException;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\Exception\AbstractHttpException;
-use Nosto\Types\UserInterface;
 
 /**
  * Operation class for posting uninstall notifications through the Nosto API.
  * An uninstall notification leaves the account as-is on Nosto but revokes all
  * the API tokens.
  */
-class UninstallAccount extends AbstractAuthenticatedOperation
+class Nosto_Operation_UninstallAccount extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
      * Sends a POST request to delete an account for a store in Nosto
      *
-     * @param UserInterface $currentUser
+     * @param Nosto_Types_UserInterface $currentUser
      * @return bool if the request was successful.
-     * @throws NostoException
-     * @throws AbstractHttpException
+     * @throws Nosto_NostoException
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
-    public function delete(UserInterface $currentUser)
+    public function delete(Nosto_Types_UserInterface $currentUser)
     {
-        $request = $this->initHttpRequest($this->account->getApiToken(Token::API_SSO));
-        $request->setPath(ApiRequest::PATH_ACCOUNT_DELETED);
+        $request = $this->initHttpRequest($this->account->getApiToken(Nosto_Request_Api_Token::API_SSO));
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_ACCOUNT_DELETED);
         $response = $request->post($currentUser);
         return $this->checkResponse($request, $response);
     }

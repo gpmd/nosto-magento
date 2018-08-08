@@ -34,14 +34,12 @@
  *
  */
 
-namespace Nosto\Request\Http;
 
-use stdClass;
 
 /**
  * Represents a HTTP response returned by a HTTP request to a Nosto endpoint
  */
-class HttpResponse
+class Nosto_Request_Http_HttpResponse
 {
     /**
      * Header prefix of request id

@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for the meta data needed for the account configuration iframe.
  */
-interface IframeInterface
+interface Nosto_Types_IframeInterface
 {
     /**
      * The name of the platform the iframe is used on.

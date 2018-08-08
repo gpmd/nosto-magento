@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,19 +28,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto;
 
-use Exception;
 
 /**
- * Nosto exception class for all errors within the SDK.
+ * Nosto_Nosto exception class for all errors within the SDK.
  */
-class NostoException extends Exception
+class Nosto_NostoException extends Exception
 {
 }

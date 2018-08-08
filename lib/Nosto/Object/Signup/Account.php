@@ -34,19 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Signup;
 
-use Nosto\AbstractObject;
-use Nosto\Helper\ValidationHelper;
-use Nosto\NostoException;
-use Nosto\Request\Api\Token;
-use Nosto\Types\Signup\AccountInterface;
-use Nosto\Types\ValidatableInterface;
 
 /**
  * Nosto account class for handling account related actions like, creation, OAuth2 syncing and SSO to Nosto.
  */
-class Account extends AbstractObject implements AccountInterface, ValidatableInterface
+class Nosto_Object_Signup_Account extends Nosto_AbstractObject implements Nosto_Types_Signup_AccountInterface, Nosto_Types_ValidatableInterface
 {
     /**
      * @var string the name of the Nosto account.
@@ -54,7 +47,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
     private $name;
 
     /**
-     * @var Token[] the Nosto API tokens associated with this account.
+     * @var Nosto_Request_Api_Token[] the Nosto API tokens associated with this account.
      */
     private $tokens = array();
 
@@ -73,14 +66,14 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
     /**
      * Validates the account attributes.
      *
-     * @throws NostoException if any attribute is invalid.
+     * @throws Nosto_NostoException if any attribute is invalid.
      */
     protected function validate()
     {
-        $validator = new ValidationHelper($this);
+        $validator = new Nosto_Helper_ValidationHelper($this);
         if (!$validator->validate()) {
             foreach ($validator->getErrors() as $errors) {
-                throw new NostoException(sprintf('Invalid Nosto account. %s', $errors[0]));
+                throw new Nosto_NostoException(sprintf('Invalid Nosto account. %s', $errors[0]));
             }
         }
     }
@@ -93,7 +86,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
         if (empty($this->tokens)) {
             return false;
         }
-        foreach (Token::getMandatoryApiTokenNames() as $name) {
+        foreach (Nosto_Request_Api_Token::getMandatoryApiTokenNames() as $name) {
             if ($this->getApiToken($name) === null) {
                 return false;
             }
@@ -145,7 +138,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
     /**
      * Returns the account tokens.
      *
-     * @return Token[] the tokens.
+     * @return Nosto_Request_Api_Token[] the tokens.
      */
     public function getTokens()
     {
@@ -153,7 +146,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
     }
 
     /**
-     * @param Token[] $tokens
+     * @param Nosto_Request_Api_Token[] $tokens
      */
     public function setTokens($tokens)
     {
@@ -168,7 +161,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
         if (empty($this->tokens)) {
             return true;
         }
-        foreach (Token::getApiTokenNames() as $name) {
+        foreach (Nosto_Request_Api_Token::getApiTokenNames() as $name) {
             if ($this->getApiToken($name) === null) {
                 return true;
             }
@@ -179,9 +172,9 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
     /**
      * Adds an API token to the account.
      *
-     * @param Token $token the token.
+     * @param Nosto_Request_Api_Token $token the token.
      */
-    public function addApiToken(Token $token)
+    public function addApiToken(Nosto_Request_Api_Token $token)
     {
         $this->tokens[] = $token;
     }
@@ -191,7 +184,7 @@ class Account extends AbstractObject implements AccountInterface, ValidatableInt
      */
     public function getMissingTokens()
     {
-        $allTokens = Token::getApiTokenNames();
+        $allTokens = Nosto_Request_Api_Token::getApiTokenNames();
         $missingTokens = array();
         foreach ($allTokens as $token) {
             if (!$this->getApiToken($token)) {

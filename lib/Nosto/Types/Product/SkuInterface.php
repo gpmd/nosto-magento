@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Types\Product;
+
 
 /**
  * Interface for the product variation.
  */
-interface SkuInterface
+interface Nosto_Types_Product_SkuInterface
 {
     /**
      * Returns the id of the variation

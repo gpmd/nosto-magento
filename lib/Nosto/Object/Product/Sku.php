@@ -34,17 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Product;
 
-use Nosto\AbstractObject;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Product\SkuInterface;
-use Nosto\Types\Product\ProductInterface;
 
 /**
  * Model for sku information
  */
-class Sku extends AbstractObject implements SkuInterface, MarkupableInterface
+class Nosto_Object_Product_Sku extends Nosto_AbstractObject implements Nosto_Types_Product_SkuInterface, Nosto_Types_MarkupableInterface
 {
     /**
      * The id of the SKU
@@ -97,7 +92,7 @@ class Sku extends AbstractObject implements SkuInterface, MarkupableInterface
 
     /**
      * Availability of the SKU
-     * @see ProductInterface
+     * @see Nosto_Types_Product_ProductInterface
      * @var string
      */
     private $availability;
@@ -295,7 +290,7 @@ class Sku extends AbstractObject implements SkuInterface, MarkupableInterface
     public function setAvailable($available)
     {
         $this->availability = $available ?
-            ProductInterface::IN_STOCK : ProductInterface::OUT_OF_STOCK;
+            Nosto_Types_Product_ProductInterface::IN_STOCK : Nosto_Types_Product_ProductInterface::OUT_OF_STOCK;
     }
 
     public function getMarkupKey()

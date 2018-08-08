@@ -34,18 +34,7 @@
  *
  */
 
-namespace Nosto\Object\Product;
 
-use Nosto\AbstractObject;
-use Nosto\Helper\ValidationHelper;
-use Nosto\NostoException;
-use Nosto\Object\StringCollection;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Product\ProductInterface;
-use Nosto\Types\Product\SkuInterface;
-use Nosto\Types\Product\VariationInterface;
-use Nosto\Types\SanitizableInterface;
-use Nosto\Types\ValidatableInterface;
 
 /**
  * Model for product information. This is used when compiling the info about a
@@ -57,11 +46,11 @@ use Nosto\Types\ValidatableInterface;
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class Product extends AbstractObject implements
-    ProductInterface,
-    ValidatableInterface,
-    MarkupableInterface,
-    SanitizableInterface
+class Nosto_Object_Product_Product extends Nosto_AbstractObject implements
+    Nosto_Types_Product_ProductInterface,
+    Nosto_Types_ValidatableInterface,
+    Nosto_Types_MarkupableInterface,
+    Nosto_Types_SanitizableInterface
 {
     /**
      * @var string absolute url to the product page.
@@ -104,7 +93,7 @@ class Product extends AbstractObject implements
     private $availability;
 
     /**
-     * @var StringCollection collection of product category strings.
+     * @var Nosto_Object_StringCollection collection of product category strings.
      */
     private $categories;
 
@@ -144,7 +133,7 @@ class Product extends AbstractObject implements
     private $ratingValue;
 
     /**
-     * @var StringCollection collection of alternative image urls
+     * @var Nosto_Object_StringCollection collection of alternative image urls
      */
     private $alternateImageUrls;
 
@@ -169,17 +158,17 @@ class Product extends AbstractObject implements
     private $gtin;
 
     /**
-     * @var StringCollection the first set of tags of the product
+     * @var Nosto_Object_StringCollection the first set of tags of the product
      */
     private $tag1;
 
     /**
-     * @var StringCollection the second set of tags of the product
+     * @var Nosto_Object_StringCollection the second set of tags of the product
      */
     private $tag2;
 
     /**
-     * @var StringCollection the third set of tags of the product
+     * @var Nosto_Object_StringCollection the third set of tags of the product
      */
     private $tag3;
 
@@ -209,14 +198,14 @@ class Product extends AbstractObject implements
     /**
      * SKUs
      *
-     * @var SkuCollection of SKUs
+     * @var Nosto_Object_Product_SkuCollection of SKUs
      */
     private $skus;
 
     /**
      * SKUs
      *
-     * @var \Nosto\Object\Product\VariationCollection of variations
+     * @var Nosto_Object_Product_VariationCollection of variations
      */
     private $variations;
 
@@ -233,13 +222,13 @@ class Product extends AbstractObject implements
 
     public function __construct()
     {
-        $this->skus = new SkuCollection();
-        $this->variations = new VariationCollection();
-        $this->tag1 = new StringCollection('tags1', 'tag');
-        $this->tag2 = new StringCollection('tags2', 'tag');
-        $this->tag3 = new StringCollection('tags3', 'tag');
-        $this->alternateImageUrls = new StringCollection('alternate_image_urls', 'alternate_image_url');
-        $this->categories = new StringCollection('categories', 'category');
+        $this->skus = new Nosto_Object_Product_SkuCollection();
+        $this->variations = new Nosto_Object_Product_VariationCollection();
+        $this->tag1 = new Nosto_Object_StringCollection('tags1', 'tag');
+        $this->tag2 = new Nosto_Object_StringCollection('tags2', 'tag');
+        $this->tag3 = new Nosto_Object_StringCollection('tags3', 'tag');
+        $this->alternateImageUrls = new Nosto_Object_StringCollection('alternate_image_urls', 'alternate_image_url');
+        $this->categories = new Nosto_Object_StringCollection('categories', 'category');
     }
 
     /**
@@ -284,7 +273,7 @@ class Product extends AbstractObject implements
     public function setAvailable($available)
     {
         $this->availability = $available ?
-            ProductInterface::IN_STOCK : ProductInterface::OUT_OF_STOCK;
+            Nosto_Types_Product_ProductInterface::IN_STOCK : Nosto_Types_Product_ProductInterface::OUT_OF_STOCK;
     }
 
     /**
@@ -851,9 +840,9 @@ class Product extends AbstractObject implements
     /**
      * Sets the SKUs
      *
-     * @param SkuCollection $skus
+     * @param Nosto_Object_Product_SkuCollection $skus
      */
-    public function setSkus(SkuCollection $skus)
+    public function setSkus(Nosto_Object_Product_SkuCollection $skus)
     {
         $this->skus = $skus;
     }
@@ -861,9 +850,9 @@ class Product extends AbstractObject implements
     /**
      * Sets the SKUs
      *
-     * @param SkuInterface $sku
+     * @param Nosto_Types_Product_SkuInterface $sku
      */
-    public function addSku(SkuInterface $sku)
+    public function addSku(Nosto_Types_Product_SkuInterface $sku)
     {
         $this->skus->append($sku);
     }
@@ -897,9 +886,9 @@ class Product extends AbstractObject implements
     /**
      * Sets the variations
      *
-     * @param VariationCollection $variations
+     * @param Nosto_Object_Product_VariationCollection $variations
      */
-    public function setVariations(VariationCollection $variations)
+    public function setVariations(Nosto_Object_Product_VariationCollection $variations)
     {
         $this->variations = $variations;
     }
@@ -907,9 +896,9 @@ class Product extends AbstractObject implements
     /**
      * Sets the variations
      *
-     * @param VariationInterface $variation
+     * @param Nosto_Types_Product_VariationInterface $variation
      */
-    public function addVariation(VariationInterface $variation)
+    public function addVariation(Nosto_Types_Product_VariationInterface $variation)
     {
         $this->variations->append($variation);
     }
@@ -973,10 +962,10 @@ class Product extends AbstractObject implements
      */
     public function isValid()
     {
-        $validator = new ValidationHelper($this);
+        $validator = new Nosto_Helper_ValidationHelper($this);
         try {
             return $validator->validate();
-        } catch (NostoException $e) {
+        } catch (Nosto_NostoException $e) {
             return false;
         }
     }

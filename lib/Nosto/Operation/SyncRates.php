@@ -34,31 +34,25 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\NostoException;
-use Nosto\Object\ExchangeRateCollection;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\Exception\AbstractHttpException;
 
 /**
  * Handles updating exchange rates through the Nosto API
  */
-class SyncRates extends AbstractAuthenticatedOperation
+class Nosto_Operation_SyncRates extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
      * Updates exchange rates to Nosto
      *
-     * @param ExchangeRateCollection $collection the collection of exchange rates to update
+     * @param Nosto_Object_ExchangeRateCollection $collection the collection of exchange rates to update
      * @return bool returns true when the operation was a success
-     * @throws NostoException
-     * @throws AbstractHttpException
+     * @throws Nosto_NostoException
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
-    public function update(ExchangeRateCollection $collection)
+    public function update(Nosto_Object_ExchangeRateCollection $collection)
     {
-        $request = $this->initApiRequest($this->account->getApiToken(Token::API_EXCHANGE_RATES));
-        $request->setPath(ApiRequest::PATH_CURRENCY_EXCHANGE_RATE);
+        $request = $this->initApiRequest($this->account->getApiToken(Nosto_Request_Api_Token::API_EXCHANGE_RATES));
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_CURRENCY_EXCHANGE_RATE);
         $response = $request->post($collection);
         return $this->checkResponse($request, $response);
     }

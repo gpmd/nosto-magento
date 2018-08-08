@@ -34,16 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Cart;
 
-use Nosto\AbstractObject;
-use Nosto\Types\LineItemInterface;
-use Nosto\Types\MarkupableInterface;
 
 /**
  * Model class containing the information about the particulars of a shopping cart.
  */
-class Cart extends AbstractObject implements MarkupableInterface
+class Nosto_Object_Cart_Cart extends Nosto_AbstractObject implements Nosto_Types_MarkupableInterface
 {
     /**
      * @var string visitor checksum
@@ -56,14 +52,14 @@ class Cart extends AbstractObject implements MarkupableInterface
     private $restoreLink;
 
     /**
-     * @var LineItemInterface[] the array of items in the shopping cart
+     * @var Nosto_Types_LineItemInterface[] the array of items in the shopping cart
      */
     private $items = array();
 
     /**
      * Returns the items in the shopping cart
      *
-     * @return LineItemInterface[] the items in the shopping cart
+     * @return Nosto_Types_LineItemInterface[] the items in the shopping cart
      */
     public function getItems()
     {
@@ -73,7 +69,7 @@ class Cart extends AbstractObject implements MarkupableInterface
     /**
      * Sets the cart items in the shopping cart
      *
-     * @param LineItemInterface[] $items the items of the shopping cart
+     * @param Nosto_Types_LineItemInterface[] $items the items of the shopping cart
      */
     public function setItems(array $items)
     {
@@ -86,9 +82,9 @@ class Cart extends AbstractObject implements MarkupableInterface
     /**
      * Adds a new item to the shopping cart
      *
-     * @param LineItemInterface $item the item to add to the shopping cart
+     * @param Nosto_Types_LineItemInterface $item the item to add to the shopping cart
      */
-    public function addItem(LineItemInterface $item)
+    public function addItem(Nosto_Types_LineItemInterface $item)
     {
         $this->items[] = $item;
     }

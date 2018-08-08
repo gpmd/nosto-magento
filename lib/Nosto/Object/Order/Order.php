@@ -34,23 +34,13 @@
  *
  */
 
-namespace Nosto\Object\Order;
 
-use Nosto\AbstractObject;
-use Nosto\NostoException;
-use Nosto\Types\LineItemInterface;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Order\BuyerInterface;
-use Nosto\Types\Order\OrderInterface;
-use Nosto\Types\Order\StatusInterface;
-use Nosto\Types\ValidatableInterface;
-use Traversable;
 
 /**
  * Model for OrderConfirm information. This is used when compiling the info about an
  * OrderConfirm that is sent to Nosto.
  */
-class Order extends AbstractObject implements OrderInterface, ValidatableInterface, MarkupableInterface
+class Nosto_Object_Order_Order extends Nosto_AbstractObject implements Nosto_Types_Order_OrderInterface, Nosto_Types_ValidatableInterface, Nosto_Types_MarkupableInterface
 {
     /**
      * @var string visitor checksum
@@ -73,12 +63,12 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     private $paymentProvider;
 
     /**
-     * @var BuyerInterface the details of the person placing the OrderConfirm
+     * @var Nosto_Types_Order_BuyerInterface the details of the person placing the OrderConfirm
      */
     private $customer;
 
     /**
-     * @var LineItemInterface[] the list of items in the OrderConfirm
+     * @var Nosto_Types_LineItemInterface[] the list of items in the OrderConfirm
      */
     private $purchasedItems = array();
 
@@ -93,7 +83,7 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     private $orderStatusLabel;
 
     /**
-     * @var StatusInterface[] the previous OrderConfirm statuses of the OrderConfirm
+     * @var Nosto_Types_Order_StatusInterface[] the previous OrderConfirm statuses of the OrderConfirm
      */
     private $orderStatuses;
 
@@ -118,9 +108,9 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     /**
      * Add a unique purchased item to the OrderConfirm
      *
-     * @param LineItemInterface $purchasedItem the purchased item
+     * @param Nosto_Types_LineItemInterface $purchasedItem the purchased item
      */
-    public function addPurchasedItems(LineItemInterface $purchasedItem)
+    public function addPurchasedItems(Nosto_Types_LineItemInterface $purchasedItem)
     {
         $this->purchasedItems[] = $purchasedItem;
     }
@@ -128,9 +118,9 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     /**
      * Add an previous OrderConfirm status to the OrderConfirm
      *
-     * @param StatusInterface $orderStatus the OrderConfirm status
+     * @param Nosto_Types_Order_StatusInterface $orderStatus the OrderConfirm status
      */
-    public function addOrderStatus(StatusInterface $orderStatus)
+    public function addOrderStatus(Nosto_Types_Order_StatusInterface $orderStatus)
     {
         $this->orderStatuses[] = $orderStatus;
     }
@@ -184,15 +174,15 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
      *
      * @param \DateTimeInterface|\DateTime $createdAt the created date.
      *
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     public function setCreatedAt($createdAt)
     {
-        if ($createdAt instanceof \DateTime
+        if ($createdAt instanceof DateTime
             || (is_object($createdAt) && method_exists($createdAt, 'format'))) {
             $this->createdAt = $createdAt->format('Y-m-d H:i:s');
         } else {
-            throw new NostoException('Invalid argumanet, expected DateTime or DateTimeInterface');
+            throw new Nosto_NostoException('Invalid argumanet, expected DateTime or DateTimeInterface');
         }
     }
 
@@ -233,9 +223,9 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     /**
      * Sets the latest OrderConfirm status for the OrderConfirm
      *
-     * @param StatusInterface $orderStatus the OrderConfirm status
+     * @param Nosto_Types_Order_StatusInterface $orderStatus the OrderConfirm status
      */
-    public function setOrderStatus(StatusInterface $orderStatus)
+    public function setOrderStatus(Nosto_Types_Order_StatusInterface $orderStatus)
     {
         $this->orderStatusCode = $orderStatus->getCode();
         $this->orderStatusLabel = $orderStatus->getLabel();
@@ -252,7 +242,7 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     /**
      * Sets the purchased items for the OrderConfirm
      *
-     * @param LineItemInterface[] $purchasedItems the purchased items
+     * @param Nosto_Types_LineItemInterface[] $purchasedItems the purchased items
      */
     public function setPurchasedItems(array $purchasedItems)
     {
@@ -270,9 +260,9 @@ class Order extends AbstractObject implements OrderInterface, ValidatableInterfa
     /**
      * Sets the buyer information for the OrderConfirm
      *
-     * @param BuyerInterface $customer the buyer information
+     * @param Nosto_Types_Order_BuyerInterface $customer the buyer information
      */
-    public function setCustomer(BuyerInterface $customer)
+    public function setCustomer(Nosto_Types_Order_BuyerInterface $customer)
     {
         $this->customer = $customer;
     }

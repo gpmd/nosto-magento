@@ -34,12 +34,7 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\NostoException;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\Exception\AbstractHttpException;
 
 /**
  * Operation class for upserting and deleting products through the Nosto API.
@@ -47,7 +42,7 @@ use Nosto\Request\Http\Exception\AbstractHttpException;
  * it does, while a product delete also results in an upsert but flags the
  * product's availability as 'Discontinued'
  */
-class DeleteProduct extends AbstractAuthenticatedOperation
+class Nosto_Operation_DeleteProduct extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
      * @var array
@@ -68,13 +63,13 @@ class DeleteProduct extends AbstractAuthenticatedOperation
      * Sends a POST request to create or update all the products currently in the collection.
      *
      * @return bool if the request was successful.
-     * @throws NostoException on failure.
-     * @throws AbstractHttpException
+     * @throws Nosto_NostoException on failure.
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
     public function delete()
     {
-        $request = $this->initApiRequest($this->account->getApiToken(Token::API_PRODUCTS));
-        $request->setPath(ApiRequest::PATH_PRODUCTS_DISCONTINUE);
+        $request = $this->initApiRequest($this->account->getApiToken(Nosto_Request_Api_Token::API_PRODUCTS));
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_PRODUCTS_DISCONTINUE);
         $response = $request->post($this->productIds);
         return $this->checkResponse($request, $response);
     }

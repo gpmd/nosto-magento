@@ -34,25 +34,20 @@
  *
  */
 
-namespace Nosto\Request\Http\Exception;
 
-use Exception;
-use Nosto\NostoException;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Request\Http\HttpResponse;
 
 /**
  * Nosto exception class for HTTP errors within the SDK.
  */
-abstract class AbstractHttpException extends NostoException
+abstract class Nosto_Request_Http_Exception_AbstractHttpException extends Nosto_NostoException
 {
     /**
-     * @var HttpResponse
+     * @var Nosto_Request_Http_HttpResponse
      */
     private $response;
 
     /**
-     * @var HttpRequest
+     * @var Nosto_Request_Http_HttpRequest
      */
     private $request;
 
@@ -61,15 +56,15 @@ abstract class AbstractHttpException extends NostoException
      * @param string $message
      * @param int|null $code
      * @param Exception|null $previous
-     * @param HttpRequest|null $request
-     * @param HttpResponse|null $response
+     * @param Nosto_Request_Http_HttpRequest|null $request
+     * @param Nosto_Request_Http_HttpResponse|null $response
      */
     public function __construct(
         $message = "",
         $code = null,
         Exception $previous = null,
-        HttpRequest $request = null,
-        HttpResponse $response = null
+        Nosto_Request_Http_HttpRequest $request = null,
+        Nosto_Request_Http_HttpResponse $response = null
     ) {
         parent::__construct($message, $code, $previous);
         $this->setRequest($request);
@@ -77,7 +72,7 @@ abstract class AbstractHttpException extends NostoException
     }
 
     /**
-     * @return HttpRequest
+     * @return Nosto_Request_Http_HttpRequest
      */
     public function getRequest()
     {
@@ -85,15 +80,15 @@ abstract class AbstractHttpException extends NostoException
     }
 
     /**
-     * @param HttpRequest $request
+     * @param Nosto_Request_Http_HttpRequest $request
      */
-    public function setRequest(HttpRequest $request)
+    public function setRequest(Nosto_Request_Http_HttpRequest $request)
     {
         $this->request = $request;
     }
 
     /**
-     * @return HttpResponse
+     * @return Nosto_Request_Http_HttpResponse
      */
     public function getResponse()
     {
@@ -101,9 +96,9 @@ abstract class AbstractHttpException extends NostoException
     }
 
     /**
-     * @param HttpResponse $response
+     * @param Nosto_Request_Http_HttpResponse $response
      */
-    public function setResponse(HttpResponse $response)
+    public function setResponse(Nosto_Request_Http_HttpResponse $response)
     {
         $this->response = $response;
     }

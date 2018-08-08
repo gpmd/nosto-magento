@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\MarkupableCollectionInterface;
 
 /**
  * Collection class to store a collection of products
  */
-class StringCollection extends AbstractCollection implements MarkupableCollectionInterface, MarkupableInterface
+class Nosto_Object_StringCollection extends Nosto_Object_AbstractCollection implements Nosto_Types_MarkupableCollectionInterface, Nosto_Types_MarkupableInterface
 {
     /** @var string|null */
     private $markupKey;
@@ -50,7 +47,7 @@ class StringCollection extends AbstractCollection implements MarkupableCollectio
     private $childMarkupKey;
 
     /**
-     * StringCollection constructor.
+     * Nosto_Object_StringCollection constructor.
      * @param string $markupKey
      * @param string $childMarkupKey
      * @param array $initArray array of string

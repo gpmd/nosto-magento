@@ -34,39 +34,35 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Http\Exception\AbstractHttpException;
-use Nosto\Types\Order\OrderInterface;
 
 /**
- * Handles sending the OrderConfirm confirmations to Nosto via the API.
+ * Handles sending the Nosto_Operation_OrderConfirm confirmations to Nosto via the API.
  *
- * OrderConfirm confirmations can be sent two different ways:
- * - matched orders; where we know the Nosto customer ID of the user who placed the OrderConfirm
- * - un-matched orders: where we do not know the Nosto customer ID of the user who placed the OrderConfirm
+ * Nosto_Operation_OrderConfirm confirmations can be sent two different ways:
+ * - matched orders; where we know the Nosto customer ID of the user who placed the Nosto_Operation_OrderConfirm
+ * - un-matched orders: where we do not know the Nosto customer ID of the user who placed the Nosto_Operation_OrderConfirm
  *
  * The second option is a fallback and should be avoided as much as possible.
  */
-class OrderConfirm extends AbstractAuthenticatedOperation
+class Nosto_Operation_OrderConfirm extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
-     * Sends the OrderConfirm confirmation to Nosto.
+     * Sends the Nosto_Operation_OrderConfirm confirmation to Nosto.
      *
-     * @param OrderInterface $order the placed OrderConfirm model.
+     * @param Nosto_Types_Order_OrderInterface $order the placed Nosto_Operation_OrderConfirm model.
      * @param string|null $customerId the Nosto customer ID of the user who placed the OrderConfirm.
      * @return true on success.
-     * @throws AbstractHttpException
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
-    public function send(OrderInterface $order, $customerId = null)
+    public function send(Nosto_Types_Order_OrderInterface $order, $customerId = null)
     {
-        $request = new ApiRequest();
+        $request = new Nosto_Request_Api_ApiRequest();
         if (!empty($customerId)) {
-            $request->setPath(ApiRequest::PATH_ORDER_TAGGING);
+            $request->setPath(Nosto_Request_Api_ApiRequest::PATH_ORDER_TAGGING);
             $replaceParams = array('{m}' => $this->account->getName(), '{cid}' => $customerId);
         } else {
-            $request->setPath(ApiRequest::PATH_UNMATCHED_ORDER_TAGGING);
+            $request->setPath(Nosto_Request_Api_ApiRequest::PATH_UNMATCHED_ORDER_TAGGING);
             $replaceParams = array('{m}' => $this->account->getName());
         }
         $request->setReplaceParams($replaceParams);

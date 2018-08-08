@@ -34,11 +34,11 @@
  *
  */
 
-namespace Nosto\Request\Http\Exception;
+
 
 /**
  * Nosto exception class for HTTP response errors within the SDK.
  */
-class HttpResponseException extends AbstractHttpException
+class Nosto_Request_Http_Exception_HttpResponseException extends Nosto_Request_Http_Exception_AbstractHttpException
 {
 }

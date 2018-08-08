@@ -34,20 +34,14 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\Object\MarkupableString;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\MarkupableCollectionInterface;
-use Nosto\Types\SanitizableInterface;
-use Traversable;
 
 /**
  * Helper class for serialize objects to JSON using a snake-case naming convention.
  * It is not necessary to use this class directly, as all operation classes
  * automatically use this helper to serialize objects to JSON
  */
-class HtmlMarkupSerializationHelper extends AbstractHelper
+class Nosto_Helper_HtmlMarkupSerializationHelper extends Nosto_Helper_AbstractHelper
 {
     const SPAN_START = '<span class="%s">';
     const SPAN_END = '</span>';
@@ -69,8 +63,7 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
         $spacesStr = str_repeat(' ', $spaces);
         $markup = $spacesStr . self::DIV_START_NOTRANSLATE;
         $markup .= self::toHtml(
-            $object,
-            SerializationHelper::toSnakeCase($key),
+            $object, Nosto_Helper_SerializationHelper::toSnakeCase($key),
             $spaces + $indent,
             $indent,
             self::STYLE_DISPLAY_NONE
@@ -91,18 +84,18 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
      */
     private static function toHtml($object, $key, $spaces = 0, $indent = 2, $style = null)
     {
-        if (!$object && $object !== 0 && $object !== '0' && $object !== false) {
+        if (!$object) {
             return "";
         }
 
-        if ($object instanceof SanitizableInterface) {
+        if ($object instanceof Nosto_Types_SanitizableInterface) {
             $object = $object->sanitize();
         }
 
         $spacesStr = str_repeat(' ', $spaces);
 
-        if ($object instanceof MarkupableInterface) {
-            $key = SerializationHelper::toSnakeCase($object->getMarkupKey());
+        if ($object instanceof Nosto_Types_MarkupableInterface) {
+            $key = Nosto_Helper_SerializationHelper::toSnakeCase($object->getMarkupKey());
         }
 
         //begin block
@@ -116,7 +109,7 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
             . $classStatement
             . $styleStatement
             . '>';
-        if (is_scalar($object) || $object instanceof MarkupableString) {
+        if (is_scalar($object) || $object instanceof Nosto_Object_MarkupableString) {
             $markup .= $object
                 . self::SPAN_END
                 . PHP_EOL;
@@ -129,7 +122,7 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
                 // Do not convert associative array keys to snake case. It is used for the custom fields
                 $markup .= self::arrayToHtml($object, $key, $spaces, $indent, $traversable, false);
             } elseif (is_object($object)) {
-                $traversable = SerializationHelper::getProperties($object);
+                $traversable = Nosto_Helper_SerializationHelper::getProperties($object);
                 $markup .= self::arrayToHtml($object, $key, $spaces, $indent, $traversable, true);
             }
             //end block
@@ -151,9 +144,10 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
     private static function arrayToHtml($object, $key, $spaces, $indent, $traversable, $snakeCaseKey)
     {
         $markup = '';
-        $isAssociative = is_array($traversable) && SerializationHelper::isAssoc($traversable);
+
+        $isAssociative = is_array($traversable) && Nosto_Helper_SerializationHelper::isAssoc($traversable);
         foreach ($traversable as $index => $childValue) {
-            if ($object instanceof MarkupableCollectionInterface && $object->getChildMarkupKey()) {
+            if ($object instanceof Nosto_Types_MarkupableCollectionInterface && $object->getChildMarkupKey()) {
                 $childMarkupKey = $object->getChildMarkupKey();
             } else {
                 if ($isAssociative) {
@@ -164,7 +158,7 @@ class HtmlMarkupSerializationHelper extends AbstractHelper
             }
 
             if ($snakeCaseKey) {
-                $childMarkupKey = SerializationHelper::toSnakeCase($childMarkupKey);
+                $childMarkupKey = Nosto_Helper_SerializationHelper::toSnakeCase($childMarkupKey);
             }
 
             if ($childValue !== null) {

@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
+
 
 /**
  * Value Object representing a currency formatting, e.g. "1.234,56".
  */
-final class Format
+final class Nosto_Object_Format
 {
     private $currencyBeforeAmount = false;
 

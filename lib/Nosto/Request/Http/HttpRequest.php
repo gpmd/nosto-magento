@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,26 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Request\Http;
 
-use Exception;
-use Nosto\Nosto;
-use Nosto\Helper\SerializationHelper;
-use Nosto\NostoException;
-use Nosto\Request\Http\Adapter\Adapter;
-use Nosto\Request\Http\Adapter\Curl;
-use Nosto\Request\Http\Adapter\Socket;
 
 /**
  * Helper class for doing http requests and returning unified response including header info.
  */
-class HttpRequest
+class Nosto_Request_Http_HttpRequest
 {
     const AUTH_BASIC = 'basic';
     const AUTH_BEARER = 'bearer';
@@ -109,26 +101,26 @@ class HttpRequest
     private $replaceParams = array();
 
     /**
-     * @var Adapter the adapter to use for making the request.
+     * @var Nosto_Request_Http_Adapter_Adapter the adapter to use for making the request.
      */
     private $adapter;
 
     /**
      * Constructor.
      * Creates the http request adapter which is chosen automatically by default based on environment.
-     * Curl is preferred if available.
+     * Nosto_Request_Http_Adapter_Curl is preferred if available.
      *
-     * @param Adapter|null $adapter the http request adapter to use
-     * @throws NostoException
+     * @param Nosto_Request_Http_Adapter_Adapter|null $adapter the http request adapter to use
+     * @throws Nosto_NostoException
      */
-    public function __construct(Adapter $adapter = null)
+    public function __construct(Nosto_Request_Http_Adapter_Adapter $adapter = null)
     {
         if ($adapter !== null) {
             $this->adapter = $adapter;
         } elseif (function_exists('curl_exec')) {
-            $this->adapter = new Curl(self::$userAgent);
+            $this->adapter = new Nosto_Request_Http_Adapter_Curl(self::$userAgent);
         } else {
-            $this->adapter = new Socket(self::$userAgent);
+            $this->adapter = new Nosto_Request_Http_Adapter_Socket(self::$userAgent);
         }
     }
 
@@ -348,7 +340,7 @@ class HttpRequest
                 break;
 
             default:
-                throw new NostoException('Unsupported auth type.');
+                throw new Nosto_NostoException('Unsupported auth type.');
         }
     }
 
@@ -370,7 +362,7 @@ class HttpRequest
      */
     public function setPath($path)
     {
-        $this->setUrl(Nosto::getBaseURL() . $path);
+        $this->setUrl(Nosto_Nosto::getBaseURL() . $path);
     }
 
     /**
@@ -387,7 +379,7 @@ class HttpRequest
      * Makes a POST request with the raw data
      *
      * @param string $data
-     * @return HttpResponse the response as returned by the endpoint
+     * @return Nosto_Request_Http_HttpResponse the response as returned by the endpoint
      */
     public function postRaw($data)
     {
@@ -412,11 +404,11 @@ class HttpRequest
      * Makes a POST request with the specified content to the configured endpoint
      *
      * @param mixed $content the object to be serialized to JSON and sent
-     * @return HttpResponse the response as returned by the endpoint
+     * @return Nosto_Request_Http_HttpResponse the response as returned by the endpoint
      */
     public function post($content)
     {
-        return $this->postRaw(SerializationHelper::serialize($content));
+        return $this->postRaw(Nosto_Helper_SerializationHelper::serialize($content));
     }
 
     /**
@@ -435,11 +427,11 @@ class HttpRequest
      * Makes a PUT request with the specified content to the configured endpoint
      *
      * @param mixed $content the object to be serialized to JSON and sent
-     * @return HttpResponse the response as returned by the endpoint
+     * @return Nosto_Request_Http_HttpResponse the response as returned by the endpoint
      */
     public function put($content)
     {
-        $this->content = SerializationHelper::serialize($content);
+        $this->content = Nosto_Helper_SerializationHelper::serialize($content);
         $url = $this->url;
         if (!empty($this->replaceParams)) {
             $url = self::buildUri($url, $this->replaceParams);
@@ -459,7 +451,7 @@ class HttpRequest
     /**
      * Makes a GET request with the specified content to the configured endpoint
      *
-     * @return HttpResponse the response as returned by the endpoint
+     * @return Nosto_Request_Http_HttpResponse the response as returned by the endpoint
      */
     public function get()
     {
@@ -484,7 +476,7 @@ class HttpRequest
     /**
      * Makes a DELETE request with the specified content to the configured endpoint
      *
-     * @return HttpResponse the response as returned by the endpoint
+     * @return Nosto_Request_Http_HttpResponse the response as returned by the endpoint
      */
     public function delete()
     {

@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Helper;
+
 
 /**
  * Date helper class for date related tasks such formatting dates in a standard way
  */
-final class DateHelper extends AbstractHelper
+final class Nosto_Helper_DateHelper extends Nosto_Helper_AbstractHelper
 {
     /**
      * Formats date into Nosto format, i.e. Y-m-d.

@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\Types\ExchangeRateInterface;
 
 /**
  * Model class for containing the information of a single exchange rate
  */
-class ExchangeRate extends AbstractObject implements ExchangeRateInterface
+class Nosto_Object_ExchangeRate extends Nosto_AbstractObject implements Nosto_Types_ExchangeRateInterface
 {
     /**
      * @var string the 3-letter ISO 4217 currency code for exchange rate

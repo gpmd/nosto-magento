@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
+
 
 /**
  * Helper class that represents a oauth2 access token.
  */
-class NostoOAuthToken
+class Nosto_Object_NostoOAuthToken
 {
     /**
      * @var string the access token string.
@@ -62,7 +62,7 @@ class NostoOAuthToken
      * Creates a new token instance and populates it with the given data.
      *
      * @param array $data the data to put in the token.
-     * @return NostoOAuthToken
+     * @return Nosto_Object_NostoOAuthToken
      */
     public static function create(array $data)
     {

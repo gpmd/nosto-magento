@@ -34,15 +34,13 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\Types\UserInterface;
 
 /**
  * Model used for containing the currently logged in user of a system. Single sign-on
  * and uninstall requests require the details of the currently logged in user
  * for auditing purposes.
  */
-class User extends AbstractPerson implements UserInterface
+class Nosto_Object_User extends Nosto_Object_AbstractPerson implements Nosto_Types_UserInterface
 {
 }

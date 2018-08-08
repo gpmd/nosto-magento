@@ -34,7 +34,7 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for an purchased item in an OrderConfirm.
@@ -42,7 +42,7 @@ namespace Nosto\Types;
  *
  * The purchased item should also be used for shipping costs, discounts or other similar data.
  */
-interface LineItemInterface
+interface Nosto_Types_LineItemInterface
 {
     /**
      * The unique identifier of the purchased item.

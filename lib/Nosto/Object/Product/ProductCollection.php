@@ -34,22 +34,19 @@
  *
  */
 
-namespace Nosto\Object\Product;
 
-use Nosto\Object\AbstractCollection;
-use Nosto\Types\Product\ProductInterface;
 
 /**
  * Collection class to store a collection of products
  */
-class ProductCollection extends AbstractCollection
+class Nosto_Object_Product_ProductCollection extends Nosto_Object_AbstractCollection
 {
     /**
      * Appends a product to the collection of products
      *
-     * @param ProductInterface $product the product to append
+     * @param Nosto_Types_Product_ProductInterface $product the product to append
      */
-    public function append(ProductInterface $product)
+    public function append(Nosto_Types_Product_ProductInterface $product)
     {
         $this->var[] = $product;
     }

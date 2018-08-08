@@ -34,9 +34,9 @@
  *
  */
 
-namespace Nosto\Types\Product;
 
-interface VariationInterface
+
+interface Nosto_Types_Product_VariationInterface
 {
     /**
      * Returns the variations's unique identifier.

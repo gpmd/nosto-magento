@@ -34,20 +34,13 @@
  *
  */
 
-namespace Nosto\Object\Signup;
 
-use Nosto\Object\Settings;
-use Nosto\Request\Api\Token;
-use Nosto\Types\Signup\BillingInterface;
-use Nosto\Types\Signup\OwnerInterface;
-use Nosto\Types\Signup\SignupInterface;
-use stdClass;
 
 /**
  * Model class for containing information used when creating an account. This
  * information along with the account settings are used to configure the Nosto account
  */
-class Signup extends Settings implements SignupInterface
+class Nosto_Object_Signup_Signup extends Nosto_Object_Settings implements Nosto_Types_Signup_SignupInterface
 {
     /**
      * @var string the unique identifier used for denoting the account
@@ -60,12 +53,12 @@ class Signup extends Settings implements SignupInterface
     private $ownerLanguageCode;
 
     /**
-     * @var OwnerInterface the account owner meta model.
+     * @var Nosto_Types_Signup_OwnerInterface the account owner meta model.
      */
     private $owner;
 
     /**
-     * @var BillingInterface the billing meta model.
+     * @var Nosto_Types_Signup_BillingInterface the billing meta model.
      */
     private $billing;
 
@@ -75,7 +68,7 @@ class Signup extends Settings implements SignupInterface
     private $details = null;
 
     /**
-     * @var Token the account creation API token used for opening accounts
+     * @var Nosto_Request_Api_Token the account creation API token used for opening accounts
      */
     private $signupApiToken;
 
@@ -104,13 +97,12 @@ class Signup extends Settings implements SignupInterface
     public function __construct($platform, $signupApiToken, $partnerCode = null)
     {
         $this->setPlatform($platform);
-        $this->setSignupApiToken(new Token(Token::API_CREATE, $signupApiToken));
+        $this->setSignupApiToken(new Nosto_Request_Api_Token(Nosto_Request_Api_Token::API_CREATE, $signupApiToken));
         $this->setPartnerCode($partnerCode);
-        $this->addApiToken(Token::API_PRODUCTS);
-        $this->addApiToken(Token::API_SSO);
-        $this->addApiToken(Token::API_EXCHANGE_RATES);
-        $this->addApiToken(Token::API_SETTINGS);
-        $this->addApiToken(Token::API_EMAIL);
+        $this->addApiToken(Nosto_Request_Api_Token::API_PRODUCTS);
+        $this->addApiToken(Nosto_Request_Api_Token::API_SSO);
+        $this->addApiToken(Nosto_Request_Api_Token::API_EXCHANGE_RATES);
+        $this->addApiToken(Nosto_Request_Api_Token::API_SETTINGS);
     }
 
     /**
@@ -132,9 +124,9 @@ class Signup extends Settings implements SignupInterface
      * primarily contain the country code used for deciding the charging currency i.e.
      * EUR or USD
      *
-     * @param $billingDetails BillingInterface the billing details
+     * @param $billingDetails Nosto_Types_Signup_BillingInterface the billing details
      */
-    public function setBillingDetails(BillingInterface $billingDetails)
+    public function setBillingDetails(Nosto_Types_Signup_BillingInterface $billingDetails)
     {
         $this->billing = $billingDetails;
     }
@@ -152,9 +144,9 @@ class Signup extends Settings implements SignupInterface
      * unique for every platform and is issued by Nosto. This key is assumed to be
      * public and therefore can bundled into the implementation source code.
      *
-     * @param Token $signupApiToken
+     * @param Nosto_Request_Api_Token $signupApiToken
      */
-    public function setSignupApiToken(Token $signupApiToken)
+    public function setSignupApiToken(Nosto_Request_Api_Token $signupApiToken)
     {
         $this->signupApiToken = $signupApiToken;
     }
@@ -229,9 +221,9 @@ class Signup extends Settings implements SignupInterface
     /**
      * Sets the account owner who is creating the account.
      *
-     * @param $owner OwnerInterface the account owner
+     * @param $owner Nosto_Types_Signup_OwnerInterface the account owner
      */
-    public function setOwner(OwnerInterface $owner)
+    public function setOwner(Nosto_Types_Signup_OwnerInterface $owner)
     {
         $this->owner = $owner;
     }
