@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,27 +28,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Operation;
 
-use HttpException;
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Request\Http\HttpResponse;
 
 /**
- * Base operation class for handling all communications through the Nosto API.
+ * Base operation class for handling all communications through the Nosto_Nosto API.
  * Each endpoint is known as an operation in the SDK.
  */
-abstract class AbstractOperation
+abstract class Nosto_Operation_AbstractOperation
 {
     const CONTENT_TYPE_URL_FORM_ENCODED = 'application/x-www-form-urlencoded';
     const CONTENT_TYPE_APPLICATION_JSON = 'application/json';
@@ -67,15 +59,15 @@ abstract class AbstractOperation
      * Helper method to throw an exception when an API or HTTP endpoint responds
      * with a non-200 status code.
      *
-     * @param $request HttpRequest the HTTP request
-     * @param $response HttpResponse the HTTP response to check
+     * @param $request Nosto_Request_Http_HttpRequest the HTTP request
+     * @param $response Nosto_Request_Http_HttpResponse the HTTP response to check
      * @return bool returns true when everything was okay
      * @throws \Nosto\Request\Http\Exception\AbstractHttpException
      */
-    protected static function checkResponse(HttpRequest $request, HttpResponse $response)
+    protected static function checkResponse(Nosto_Request_Http_HttpRequest $request, Nosto_Request_Http_HttpResponse $response)
     {
         if ($response->getCode() !== 200) {
-            Nosto::throwHttpException($request, $response);
+            Nosto_Nosto::throwHttpException($request, $response);
         }
         return true;
     }
@@ -84,17 +76,17 @@ abstract class AbstractOperation
      * Create and returns a new API request object initialized with a content-type
      * of 'application/json' and the specified authentication token
      *
-     * @param Token $token the token to use for the endpoint
-     * @return ApiRequest the newly created request object.
-     * @throws NostoException if the account does not have the correct token set.
+     * @param Nosto_Request_Api_Token $token the token to use for the endpoint
+     * @return Nosto_Request_Api_ApiRequest the newly created request object.
+     * @throws Nosto_NostoException if the account does not have the correct token set.
      */
-    protected function initApiRequest(Token $token = null)
+    protected function initApiRequest(Nosto_Request_Api_Token $token = null)
     {
         if (is_null($token)) {
-            throw new NostoException('No API token found for account.');
+            throw new Nosto_NostoException('No API token found for account.');
         }
 
-        $request = new ApiRequest();
+        $request = new Nosto_Request_Api_ApiRequest();
         $request->setResponseTimeout($this->getResponseTimeout());
         $request->setConnectTimeout($this->getConnectTimeout());
         $request->setContentType(self::CONTENT_TYPE_APPLICATION_JSON);
@@ -106,17 +98,17 @@ abstract class AbstractOperation
      * Create and returns a new API request object initialized with a content-type
      * of 'application/x-www-form-urlencoded' and the specified authentication token
      *
-     * @param Token $token the token to use for the endpoint
-     * @return HttpRequest the newly created request object.
-     * @throws NostoException if the account does not have the correct token set.
+     * @param Nosto_Request_Api_Token $token the token to use for the endpoint
+     * @return Nosto_Request_Http_HttpRequest the newly created request object.
+     * @throws Nosto_NostoException if the account does not have the correct token set.
      */
-    protected function initHttpRequest(Token $token = null)
+    protected function initHttpRequest(Nosto_Request_Api_Token $token = null)
     {
         if (is_null($token)) {
-            throw new NostoException('No API token found for account.');
+            throw new Nosto_NostoException('No API token found for account.');
         }
 
-        $request = new HttpRequest();
+        $request = new Nosto_Request_Http_HttpRequest();
         $request->setResponseTimeout($this->getResponseTimeout());
         $request->setConnectTimeout($this->getConnectTimeout());
         $request->setContentType(self::CONTENT_TYPE_URL_FORM_ENCODED);

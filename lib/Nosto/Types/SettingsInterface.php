@@ -34,9 +34,9 @@
  *
  */
 
-namespace Nosto\Types;
 
-interface SettingsInterface
+
+interface Nosto_Types_SettingsInterface
 {
     /**
      * The shops name for which the account is to be created for.

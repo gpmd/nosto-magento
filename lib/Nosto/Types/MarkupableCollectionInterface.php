@@ -34,9 +34,9 @@
  *
  */
 
-namespace Nosto\Types;
 
-interface MarkupableCollectionInterface
+
+interface Nosto_Types_MarkupableCollectionInterface
 {
     public function getChildMarkupKey();
 }

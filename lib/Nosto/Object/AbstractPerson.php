@@ -35,16 +35,13 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\Types\PersonInterface;
 
 /**
  * Abstract model used for containing the basic details of person for purposes
  * such as representing a customer or a logged-in user.
  */
-abstract class AbstractPerson extends AbstractObject implements PersonInterface
+abstract class Nosto_Object_AbstractPerson extends Nosto_AbstractObject implements Nosto_Types_PersonInterface
 {
     /**
      * @var string the first name of the person
@@ -76,14 +73,9 @@ abstract class AbstractPerson extends AbstractObject implements PersonInterface
      */
     private $country;
 
-    /**
-     * @var boolean the opt-in status for the person
-     */
-    private $marketingPermission;
-
     public function __construct()
     {
-        $this->setMarketingPermission(false);
+        // Dummy
     }
 
     /**
@@ -192,30 +184,5 @@ abstract class AbstractPerson extends AbstractObject implements PersonInterface
     public function setCountry($country)
     {
         $this->country = $country;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getMarketingPermission()
-    {
-        return $this->marketingPermission;
-    }
-
-    /**
-     * @param bool $marketingPermission
-     */
-    public function setMarketingPermission($marketingPermission)
-    {
-        $this->marketingPermission = (bool)$marketingPermission;
-    }
-
-    /**
-     * @param bool $optedIn
-     * @deprecated will be removed in near future, use setMarketingPermission instead
-     */
-    public function setOptedIn($optedIn)
-    {
-        $this->setMarketingPermission($optedIn);
     }
 }

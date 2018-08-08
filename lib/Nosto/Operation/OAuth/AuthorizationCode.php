@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,25 +28,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Operation\OAuth;
 
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Object\NostoOAuthToken;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Types\OAuthInterface;
 
 /**
  * Helper class for doing OAuth2 authorization with Nosto.
  * The client implements the 'Authorization Code' grant type.
  */
-class AuthorizationCode
+class Nosto_Operation_OAuth_AuthorizationCode
 {
     const PATH_TOKEN = '/token?code={cod}&client_id={cid}&client_secret={sec}&redirect_uri={uri}&grant_type=authorization_code'; // @codingStandardsIgnoreLine
 
@@ -76,9 +70,9 @@ class AuthorizationCode
     private $scopes = array();
 
     /**
-     * @param OAuthInterface $metaData
+     * @param Nosto_Types_OAuthInterface $metaData
      */
-    public function __construct(OAuthInterface $metaData)
+    public function __construct(Nosto_Types_OAuthInterface $metaData)
     {
         $this->scopes = $metaData->getScopes();
         $this->clientId = $metaData->getClientId();
@@ -91,17 +85,17 @@ class AuthorizationCode
      * Authenticates the application with the given code to receive an access token.
      *
      * @param string $code code sent by the authorization server to exchange for an access token.
-     * @return NostoOAuthToken
-     * @throws NostoException
+     * @return Nosto_Object_NostoOAuthToken
+     * @throws Nosto_NostoException
      */
     public function authenticate($code)
     {
         if (empty($code)) {
-            throw new NostoException('Invalid authentication token');
+            throw new Nosto_NostoException('Invalid authentication token');
         }
 
-        $request = new HttpRequest();
-        $request->setUrl(Nosto::getOAuthBaseUrl() . self::PATH_TOKEN);
+        $request = new Nosto_Request_Http_HttpRequest();
+        $request->setUrl(Nosto_Nosto::getOAuthBaseUrl() . self::PATH_TOKEN);
         $request->setReplaceParams(
             array(
                 '{cid}' => $this->clientId,
@@ -114,15 +108,15 @@ class AuthorizationCode
         $result = $response->getJsonResult(true);
 
         if ($response->getCode() !== 200) {
-            Nosto::throwHttpException($request, $response);
+            Nosto_Nosto::throwHttpException($request, $response);
         }
         if (empty($result['access_token'])) {
-            throw new NostoException('No "access_token" returned after authenticating with code');
+            throw new Nosto_NostoException('No "access_token" returned after authenticating with code');
         }
         if (empty($result['merchant_name'])) {
-            throw new NostoException('No "merchant_name" returned after authenticating with code');
+            throw new Nosto_NostoException('No "merchant_name" returned after authenticating with code');
         }
 
-        return NostoOAuthToken::create($result);
+        return Nosto_Object_NostoOAuthToken::create($result);
     }
 }

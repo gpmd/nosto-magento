@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for all objects that support data validation.
  */
-interface ValidatableInterface
+interface Nosto_Types_ValidatableInterface
 {
     /**
      * Returns an array of validator rules for the object properties.

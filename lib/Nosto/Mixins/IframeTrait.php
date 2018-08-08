@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,26 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Mixins;
 
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Operation\InitiateSso;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Types\IframeInterface;
-use Nosto\Types\Signup\AccountInterface;
-use Nosto\Types\UserInterface;
 
 /**
  * Iframe mixin class for account administration iframe.
  */
-trait IframeTrait
+trait Nosto_Mixins_IframeTrait
 {
     /**
      * Returns the url for the account administration iframe.
@@ -78,7 +70,7 @@ trait IframeTrait
         );
 
         $account = self::getAccount();
-        if ($account instanceof AccountInterface) {
+        if ($account instanceof Nosto_Types_Signup_AccountInterface) {
             $missingScopes = $account->getMissingTokens();
             if (!empty($missingScopes)) {
                 $defaultParameters['missing_scopes'] = implode(',', $missingScopes);
@@ -89,27 +81,27 @@ trait IframeTrait
         $user = self::getUser();
         if ($account !== null && $user !== null && $account->isConnectedToNosto()) {
             try {
-                $service = new InitiateSso($account);
+                $service = new Nosto_Operation_InitiateSso($account);
                 $url = $service->get($user, $iframe->getPlatform()) . '?' . $queryParams;
-            } catch (NostoException $e) {
+            } catch (Nosto_NostoException $e) {
                 // If the SSO fails, we show a "remove account" page to the user in OrderConfirm to
                 // allow to remove Nosto and start over.
                 // The only case when this should happen is when the api token for some
                 // reason is invalid, which is the case when switching between environments.
                 $errorParams = array(
-                    Nosto::URL_PARAM_MESSAGE_TYPE => Nosto::TYPE_ERROR,
-                    Nosto::URL_PARAM_MESSAGE_CODE => Nosto::CODE_ACCOUNT_DELETE,
-                    Nosto::URL_PARAM_MESSAGE_TEXT => $e->getMessage()
+                    Nosto_Nosto::URL_PARAM_MESSAGE_TYPE => Nosto_Nosto::TYPE_ERROR,
+                    Nosto_Nosto::URL_PARAM_MESSAGE_CODE => Nosto_Nosto::CODE_ACCOUNT_DELETE,
+                    Nosto_Nosto::URL_PARAM_MESSAGE_TEXT => $e->getMessage()
                 );
                 $queryParams = http_build_query(array_merge($defaultParameters, $params, $errorParams));
-                $url = HttpRequest::buildUri(
-                    Nosto::getBaseUrl() . '/hub/{platform}/uninstall' . '?' . $queryParams,
+                $url = Nosto_Request_Http_HttpRequest::buildUri(
+                    Nosto_Nosto::getBaseUrl() . '/hub/{platform}/uninstall' . '?' . $queryParams,
                     array('{platform}' => $iframe->getPlatform(),)
                 );
             }
         } else {
-            $url = HttpRequest::buildUri(
-                Nosto::getBaseUrl() . '/hub/{platform}/install' . '?' . $queryParams,
+            $url = Nosto_Request_Http_HttpRequest::buildUri(
+                Nosto_Nosto::getBaseUrl() . '/hub/{platform}/install' . '?' . $queryParams,
                 array('{platform}' => $iframe->getPlatform())
             );
         }
@@ -119,21 +111,21 @@ trait IframeTrait
     /**
      * Returns the iframe params with which to load the IFrame
      *
-     * @return IframeInterface the iframe params with which to load the iframe
+     * @return Nosto_Types_IframeInterface the iframe params with which to load the iframe
      */
     public abstract function getIframe();
 
     /**
      * Returns the current for which to load the IFrame
      *
-     * @return UserInterface the current user for which to load the iframe
+     * @return Nosto_Types_UserInterface the current user for which to load the iframe
      */
     public abstract function getUser();
 
     /**
      * Returns the account for which to load the IFrame
      *
-     * @return AccountInterface the account for which to load the iframe
+     * @return Nosto_Types_Signup_AccountInterface the account for which to load the iframe
      */
     public abstract function getAccount();
 }

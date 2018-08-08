@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,26 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Operation\InitiateSso;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Types\IframeInterface;
-use Nosto\Types\Signup\AccountInterface;
-use Nosto\Types\UserInterface;
 
 /**
  * Iframe helper class for account administration iframe.
  */
-final class IframeHelper extends AbstractHelper
+final class Nosto_Helper_IframeHelper extends Nosto_Helper_AbstractHelper
 {
     const IFRAME_URI_INSTALL = '/hub/{platform}/install';
     const IFRAME_URI_UNINSTALL = '/hub/{platform}/uninstall';
@@ -56,16 +48,16 @@ final class IframeHelper extends AbstractHelper
      * Returns the url for the account administration iframe.
      * If the passed account is null, then the url will point to the start page where a new account can be created.
      *
-     * @param IframeInterface $iframe the iframe meta data.
-     * @param AccountInterface|null $account the configuration to return the url for.
-     * @param UserInterface $user
+     * @param Nosto_Types_IframeInterface $iframe the iframe meta data.
+     * @param Nosto_Types_Signup_AccountInterface|null $account the configuration to return the url for.
+     * @param Nosto_Types_UserInterface $user
      * @param array $params additional parameters to add to the iframe url.
      * @return string the iframe url.
      */
     public static function getUrl(
-        IframeInterface $iframe,
-        AccountInterface $account = null,
-        UserInterface $user = null,
+        Nosto_Types_IframeInterface $iframe,
+        Nosto_Types_Signup_AccountInterface $account = null,
+        Nosto_Types_UserInterface $user = null,
         array $params = array()
     ) {
         $defaultParameters = array(
@@ -85,7 +77,7 @@ final class IframeHelper extends AbstractHelper
             'email' => $iframe->getEmail(),
             'modules' => $iframe->getModules()
         );
-        if ($account instanceof AccountInterface) {
+        if ($account instanceof Nosto_Types_Signup_AccountInterface) {
             $missingScopes = $account->getMissingTokens();
             if (!empty($missingScopes)) {
                 $defaultParameters['missing_scopes'] = implode(',', $missingScopes);
@@ -100,23 +92,23 @@ final class IframeHelper extends AbstractHelper
 
         if ($account !== null && $user !== null && $account->isConnectedToNosto()) {
             try {
-                $service = new InitiateSso($account);
+                $service = new Nosto_Operation_InitiateSso($account);
                 $url = $service->get($user, $iframe->getPlatform()) . '?' . $queryParams;
-            } catch (NostoException $e) {
+            } catch (Nosto_NostoException $e) {
                 // If the SSO fails, we show a "remove account" page to the user in OrderConfirm to
                 // allow to remove Nosto and start over.
                 // The only case when this should happen is when the api token for some
                 // reason is invalid, which is the case when switching between environments.
-                $url = HttpRequest::buildUri(
-                    Nosto::getBaseUrl() . self::IFRAME_URI_UNINSTALL . '?' . $queryParams,
+                $url = Nosto_Request_Http_HttpRequest::buildUri(
+                    Nosto_Nosto::getBaseUrl() . self::IFRAME_URI_UNINSTALL . '?' . $queryParams,
                     array(
                         '{platform}' => $iframe->getPlatform(),
                     )
                 );
             }
         } else {
-            $url = HttpRequest::buildUri(
-                Nosto::getBaseUrl() . self::IFRAME_URI_INSTALL . '?' . $queryParams,
+            $url = Nosto_Request_Http_HttpRequest::buildUri(
+                Nosto_Nosto::getBaseUrl() . self::IFRAME_URI_INSTALL . '?' . $queryParams,
                 array(
                     '{platform}' => $iframe->getPlatform(),
                 )

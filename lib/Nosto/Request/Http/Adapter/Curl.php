@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Request\Http\Adapter;
 
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Request\Http\HttpResponse;
 
 /**
- * Adapter class for making http requests using cURL and requires curl to be installed.
+ * Nosto_Request_Http_Adapter_Adapter class for making http requests using cURL and requires curl to be installed.
  */
-class Curl extends Adapter
+class Nosto_Request_Http_Adapter_Curl extends Nosto_Request_Http_Adapter_Adapter
 {
 
     /**
@@ -79,10 +76,10 @@ class Curl extends Adapter
     }
 
     /**
-     * Sends the request and creates a HttpResponse instance containing the response headers and body.
+     * Sends the request and creates a Nosto_Request_Http_HttpResponse instance containing the response headers and body.
      *
      * @param array $curlOptions options for curl_setopt_array().
-     * @return HttpResponse
+     * @return Nosto_Request_Http_HttpResponse
      */
     protected function send(array $curlOptions)
     {
@@ -111,7 +108,7 @@ class Curl extends Adapter
         $message = curl_error($ch);
         curl_close($ch);
 
-        return new HttpResponse($headers, $body, $message);
+        return new Nosto_Request_Http_HttpResponse($headers, $body, $message);
     }
 
     /**
@@ -143,7 +140,7 @@ class Curl extends Adapter
             array(
                 CURLOPT_URL => $url,
                 CURLOPT_POSTFIELDS => $this->getContent(),
-                CURLOPT_CUSTOMREQUEST => HttpRequest::METHOD_PUT,
+                CURLOPT_CUSTOMREQUEST => Nosto_Request_Http_HttpRequest::METHOD_PUT,
                 CURLOPT_HEADER => 1,
                 CURLOPT_FRESH_CONNECT => 1,
                 CURLOPT_RETURNTRANSFER => 1,
@@ -161,7 +158,7 @@ class Curl extends Adapter
         return $this->send(
             array(
                 CURLOPT_URL => $url,
-                CURLOPT_CUSTOMREQUEST => HttpRequest::METHOD_DELETE,
+                CURLOPT_CUSTOMREQUEST => Nosto_Request_Http_HttpRequest::METHOD_DELETE,
                 CURLOPT_HEADER => 1,
                 CURLOPT_FRESH_CONNECT => 1,
                 CURLOPT_RETURNTRANSFER => 1,

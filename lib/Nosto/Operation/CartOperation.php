@@ -34,34 +34,29 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\Helper\SerializationHelper;
-use Nosto\Object\Event\Cart\Update;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Http\Exception\AbstractHttpException;
 
-class CartOperation extends AbstractAuthenticatedOperation
+class Nosto_Operation_CartOperation extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
      * Sends a POST request to update the cart
      *
-     * @param Update $update the cart changes
+     * @param Nosto_Object_Event_Cart_Update $update the cart changes
      * @param string $nostoCustomerId
      * @param string $accountId merchange id
      * @return bool if the request was successful.
-     * @throws AbstractHttpException
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
-    public function updateCart(Update $update, $nostoCustomerId, $accountId)
+    public function updateCart(Nosto_Object_Event_Cart_Update $update, $nostoCustomerId, $accountId)
     {
-        $request = new ApiRequest();
+        $request = new Nosto_Request_Api_ApiRequest();
         $request->setContentType(self::CONTENT_TYPE_APPLICATION_JSON);
-        $request->setPath(ApiRequest::PATH_CART_UPDATE);
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_CART_UPDATE);
         $channelName = 'cartUpdated/' . $accountId . '/' . $nostoCustomerId;
         $data = array();
         $item = array();
         $item['channel'] = $channelName;
-        $item['formats'] = array('json-object' => json_decode(SerializationHelper::serialize($update)));
+        $item['formats'] = array('json-object' => json_decode(Nosto_Helper_SerializationHelper::serialize($update)));
         $data['items'] = array($item);
         $updateJson = json_encode($data);
         $response = $request->postRaw($updateJson);

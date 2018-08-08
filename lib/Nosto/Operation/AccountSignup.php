@@ -34,31 +34,24 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\NostoException;
-use Nosto\Object\Signup\Account;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Types\Signup\AccountInterface;
-use Nosto\Types\Signup\SignupInterface;
 
 /**
  * Operation class for handling the creation accounts through the Nosto API.
  */
-class AccountSignup extends AbstractOperation
+class Nosto_Operation_AccountSignup extends Nosto_Operation_AbstractOperation
 {
     /**
-     * @var SignupInterface Nosto account meta
+     * @var Nosto_Types_Signup_SignupInterface Nosto account meta
      */
     private $account;
 
     /**
      * Constructor.
      *
-     * @param SignupInterface $account the Nosto account object.
+     * @param Nosto_Types_Signup_SignupInterface $account the Nosto account object.
      */
-    public function __construct(SignupInterface $account)
+    public function __construct(Nosto_Types_Signup_SignupInterface $account)
     {
         $this->account = $account;
         //Account creation takes time
@@ -68,19 +61,19 @@ class AccountSignup extends AbstractOperation
     /**
      * Sends a POST request to create a new account for a store in Nosto
      *
-     * @return AccountInterface if the request was successful.
-     * @throws NostoException on failure.
+     * @return Nosto_Types_Signup_AccountInterface if the request was successful.
+     * @throws Nosto_NostoException on failure.
      */
     public function create()
     {
         $request = $this->initApiRequest($this->account->getSignUpApiToken());
-        $request->setPath(ApiRequest::PATH_SIGN_UP);
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_SIGN_UP);
         $request->setReplaceParams(array('{lang}' => $this->account->getLanguageCode()));
         $response = $request->post($this->account);
         $this->checkResponse($request, $response);
 
-        $account = new Account($this->account->getPlatform() . '-' . $this->account->getName());
-        $account->setTokens(Token::parseTokens(
+        $account = new Nosto_Object_Signup_Account($this->account->getPlatform() . '-' . $this->account->getName());
+        $account->setTokens(Nosto_Request_Api_Token::parseTokens(
             $response->getJsonResult(true),
             '',
             '_token'

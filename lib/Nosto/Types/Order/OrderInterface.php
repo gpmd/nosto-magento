@@ -34,16 +34,14 @@
  *
  */
 
-namespace Nosto\Types\Order;
 
-use Nosto\Types\LineItemInterface;
 
 /**
  * Interface for the meta data of an placed OrderConfirm.
  * This is used when making OrderConfirm confirmation API requests and OrderConfirm history
  * exports to Nosto.
  */
-interface OrderInterface
+interface Nosto_Types_Order_OrderInterface
 {
     /**
      * The unique OrderConfirm number identifying the OrderConfirm.
@@ -70,14 +68,14 @@ interface OrderInterface
     /**
      * The buyer info of the user who placed the OrderConfirm.
      *
-     * @return BuyerInterface the meta data model.
+     * @return Nosto_Types_Order_BuyerInterface the meta data model.
      */
     public function getCustomer();
 
     /**
      * The purchased items which were included in the OrderConfirm.
      *
-     * @return LineItemInterface[] the meta data models.
+     * @return Nosto_Types_LineItemInterface[] the meta data models.
      */
     public function getPurchasedItems();
 

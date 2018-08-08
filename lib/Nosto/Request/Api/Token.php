@@ -34,25 +34,18 @@
  *
  */
 
-namespace Nosto\Request\Api;
 
-use Nosto\AbstractObject;
-use Nosto\Helper\ValidationHelper;
-use Nosto\NostoException;
-use Nosto\Types\ValidatableInterface;
 
 /**
  * Class representing an API token for the Nosto API's.
  */
-class Token extends AbstractObject implements ValidatableInterface
+class Nosto_Request_Api_Token extends Nosto_AbstractObject implements Nosto_Types_ValidatableInterface
 {
     const API_SSO = 'sso';
     const API_PRODUCTS = 'products';
     const API_EXCHANGE_RATES = 'rates';
     const API_SETTINGS = 'settings';
-    const API_EMAIL = 'email';
     const API_CREATE = 'create'; // Special token related to the platform
-
     /**
      * @var array list of valid api tokens to request from Nosto.
      */
@@ -60,8 +53,7 @@ class Token extends AbstractObject implements ValidatableInterface
         self::API_SSO,
         self::API_PRODUCTS,
         self::API_EXCHANGE_RATES,
-        self::API_SETTINGS,
-        self::API_EMAIL
+        self::API_SETTINGS
     );
     /**
      * @var string the token name, must be one of the defined tokens from self::$tokenNames.
@@ -78,7 +70,6 @@ class Token extends AbstractObject implements ValidatableInterface
      *
      * @param string $name the token name (must be one of self::$tokenNames).
      * @param string $value the token value string.
-     * @throws NostoException
      */
     public function __construct($name, $value)
     {
@@ -90,14 +81,14 @@ class Token extends AbstractObject implements ValidatableInterface
     /**
      * Validates the token attributes.
      *
-     * @throws NostoException if any attribute is invalid.
+     * @throws Nosto_NostoException if any attribute is invalid.
      */
     protected function validate()
     {
-        $validator = new ValidationHelper($this);
+        $validator = new Nosto_Helper_ValidationHelper($this);
         if (!$validator->validate()) {
             foreach ($validator->getErrors() as $errors) {
-                throw new NostoException(sprintf('Invalid Nosto API token. %s', $errors[0]));
+                throw new Nosto_NostoException(sprintf('Invalid Nosto API token. %s', $errors[0]));
             }
         }
     }
@@ -108,7 +99,7 @@ class Token extends AbstractObject implements ValidatableInterface
      * @param array $tokens the list of token name=>value pairs.
      * @param string $prefix optional prefix for the token name in the list.
      * @param string $postfix optional postfix for the token name in the list.
-     * @return Token[] a list of token instances.
+     * @return Nosto_Request_Api_Token[] a list of token instances.
      */
     public static function parseTokens(array $tokens, $prefix = '', $postfix = '')
     {

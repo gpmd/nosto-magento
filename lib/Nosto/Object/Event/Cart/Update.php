@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Event\Cart;
 
-use Nosto\AbstractObject;
-use Nosto\Object\Cart\Cart;
 
 /**
  * Model class containing the update of cart
  */
-class Update extends AbstractObject
+class Nosto_Object_Event_Cart_Update extends Nosto_AbstractObject
 {
     private $cart;
 
@@ -50,7 +47,7 @@ class Update extends AbstractObject
     private $addedItems;
 
     /**
-     * @return Cart
+     * @return Nosto_Object_Cart_Cart
      */
     public function getCart()
     {
@@ -58,7 +55,7 @@ class Update extends AbstractObject
     }
 
     /**
-     * @param Cart $cart
+     * @param Nosto_Object_Cart_Cart $cart
      */
     public function setCart($cart)
     {

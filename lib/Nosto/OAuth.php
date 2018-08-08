@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,22 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto;
 
-use Nosto\Object\Signup\Account;
-use Nosto\Types\OAuthInterface;
-use Nosto\Types\Signup\AccountInterface;
 
 /**
  * Oauth DTO (Data Transfer Object).
  */
-class OAuth implements OAuthInterface
+class Nosto_OAuth implements Nosto_Types_OAuthInterface
 {
     /**
      * @var array The scopes for the OAuth2 request.
@@ -63,17 +59,17 @@ class OAuth implements OAuthInterface
     private $language;
 
     /**
-     * @var Account|null account if OAuth is to sync details.
+     * @var Nosto_Object_Signup_Account|null account if Nosto_OAuth is to sync details.
      */
     private $account;
 
     /**
-     * @var string the client-identifier of the platform doing the OAuth
+     * @var string the client-identifier of the platform doing the Nosto_OAuth
      */
     private $clientId;
 
     /**
-     * @var string the client-secret of the platform doing the OAuth
+     * @var string the client-secret of the platform doing the Nosto_OAuth
      */
     private $clientSecret;
 
@@ -173,7 +169,7 @@ class OAuth implements OAuthInterface
     /**
      * @inheritdoc
      */
-    public function setAccount(AccountInterface $account)
+    public function setAccount(Nosto_Types_Signup_AccountInterface $account)
     {
         $this->account = $account;
     }

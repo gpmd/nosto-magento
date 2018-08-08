@@ -34,18 +34,15 @@
  *
  */
 
-namespace Nosto\Object\Signup;
 
-use Nosto\Object\AbstractPerson;
-use Nosto\Types\Signup\OwnerInterface;
 
 /**
  * Model class containing information about the person creating the account i.e.
  * the owner of the account. This could be the person logged into the store admin
- * or the user filling out the Signup form.
+ * or the user filling out the Nosto_Object_Signup_Signup form.
  * This is the user who will be account owner in Nosto and receive the welcome
  * email.
  */
-class Owner extends AbstractPerson implements OwnerInterface
+class Nosto_Object_Signup_Owner extends Nosto_Object_AbstractPerson implements Nosto_Types_Signup_OwnerInterface
 {
 }

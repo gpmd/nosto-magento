@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,25 +28,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto;
 
-use Nosto\Request\Api\Exception\ApiResponseException;
-use Nosto\Request\Http\Exception\AbstractHttpException;
-use Nosto\Request\Http\Exception\HttpResponseException;
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Request\Http\HttpResponse;
 
 /**
  * Main SDK class.
  * Provides common functionality for the SDK.
  */
-class Nosto
+class Nosto_Nosto
 {
     const TYPE_SUCCESS = 'success';
     const TYPE_ERROR = 'error';
@@ -107,13 +101,13 @@ class Nosto
      * Throws a new HttpException exception with info about both the
      * request and response.
      *
-     * @param HttpRequest $request the request object to take additional info from.
-     * @param HttpResponse $response the response object to take additional info from.
-     * @throws AbstractHttpException the exception.
+     * @param Nosto_Request_Http_HttpRequest $request the request object to take additional info from.
+     * @param Nosto_Request_Http_HttpResponse $response the response object to take additional info from.
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException the exception.
      */
     public static function throwHttpException(
-        HttpRequest $request,
-        HttpResponse $response
+        Nosto_Request_Http_HttpRequest $request,
+        Nosto_Request_Http_HttpResponse $response
     ) {
         $message = '';
         $jsonResponse = $response->getJsonResult();
@@ -128,7 +122,7 @@ class Nosto
             if (!empty($errors)) {
                 $message .= ' | ' . $errors;
             }
-            throw new ApiResponseException(
+            throw new Nosto_Request_Api_Exception_ApiResponseException(
                 $message,
                 $response->getCode(), // http status code
                 null,
@@ -142,7 +136,7 @@ class Nosto
             if (!empty($errors)) {
                 $message .= ' | ' . $errors;
             }
-            throw new HttpResponseException(
+            throw new Nosto_Request_Http_Exception_HttpResponseException(
                 $message,
                 $response->getCode(),
                 null,
@@ -153,11 +147,11 @@ class Nosto
     }
 
     /**
-     * Parses errors from HttpResponse
-     * @param HttpResponse $response
+     * Parses errors from Nosto_Request_Http_HttpResponse
+     * @param Nosto_Request_Http_HttpResponse $response
      * @return string
      */
-    public static function parseErrorsFromResponse(HttpResponse $response)
+    public static function parseErrorsFromResponse(Nosto_Request_Http_HttpResponse $response)
     {
         $json = $response->getJsonResult();
         $errorStr = '';

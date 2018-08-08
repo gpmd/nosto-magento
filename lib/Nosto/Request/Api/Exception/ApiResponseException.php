@@ -34,13 +34,11 @@
  *
  */
 
-namespace Nosto\Request\Api\Exception;
 
-use Nosto\Request\Http\Exception\HttpResponseException;
 
 /**
  * Nosto exception class for API response errors within the SDK.
  */
-class ApiResponseException extends HttpResponseException
+class Nosto_Request_Api_Exception_ApiResponseException extends Nosto_Request_Http_Exception_HttpResponseException
 {
 }

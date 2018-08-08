@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Helper;
+
 
 /**
  * Price helper class for price related tasks such formatting prices in a standard way
  */
-final class PriceHelper extends AbstractHelper
+final class Nosto_Helper_PriceHelper extends Nosto_Helper_AbstractHelper
 {
     /**
      * Formats price into Nosto format, e.g. 1000.99.

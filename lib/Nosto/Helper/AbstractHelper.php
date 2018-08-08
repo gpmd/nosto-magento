@@ -34,12 +34,12 @@
  *
  */
 
-namespace Nosto\Helper;
+
 
 /**
  * Base class that all Nosto helpers must extend to prevent instantiation.
  */
-abstract class AbstractHelper
+abstract class Nosto_Helper_AbstractHelper
 {
     private function __construct()
     {

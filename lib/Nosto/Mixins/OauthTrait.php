@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,22 +28,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Mixins;
 
-use Exception;
-use Nosto\Nosto;
-use Nosto\NostoException;
-use Nosto\Operation\OAuth\AuthorizationCode;
-use Nosto\Operation\OAuth\ExchangeTokens;
-use Nosto\Types\Signup\AccountInterface;
 
-trait OauthTrait
+trait Nosto_Mixins_OauthTrait
 {
 
     public final function connect()
@@ -52,30 +45,30 @@ trait OauthTrait
             try {
                 $meta = self::getMeta();
 
-                $operation = new AuthorizationCode($meta);
+                $operation = new Nosto_Operation_OAuth_AuthorizationCode($meta);
                 $token = $operation->authenticate($code);
 
-                $operation = new ExchangeTokens($meta);
+                $operation = new Nosto_Operation_OAuth_ExchangeTokens($meta);
                 $account = $operation->exchange($token);
 
                 if (self::save($account)) {
                     self::redirect(
                         array(
-                            Nosto::URL_PARAM_MESSAGE_TYPE => Nosto::TYPE_SUCCESS,
-                            Nosto::URL_PARAM_MESSAGE_CODE => Nosto::CODE_ACCOUNT_CONNECT
+                            Nosto_Nosto::URL_PARAM_MESSAGE_TYPE => Nosto_Nosto::TYPE_SUCCESS,
+                            Nosto_Nosto::URL_PARAM_MESSAGE_CODE => Nosto_Nosto::CODE_ACCOUNT_CONNECT
                         )
                     );
                     return;
                 } else {
-                    throw new NostoException('Failed to connect account');
+                    throw new Nosto_NostoException('Failed to connect account');
                 }
-            } catch (NostoException $e) {
+            } catch (Nosto_NostoException $e) {
                 self::logError($e);
                 self::redirect(
                     array(
-                        Nosto::URL_PARAM_MESSAGE_TYPE => Nosto::TYPE_ERROR,
-                        Nosto::URL_PARAM_MESSAGE_CODE => Nosto::CODE_ACCOUNT_CONNECT,
-                        Nosto::URL_PARAM_MESSAGE_TEXT => $e->getMessage()
+                        Nosto_Nosto::URL_PARAM_MESSAGE_TYPE => Nosto_Nosto::TYPE_ERROR,
+                        Nosto_Nosto::URL_PARAM_MESSAGE_CODE => Nosto_Nosto::CODE_ACCOUNT_CONNECT,
+                        Nosto_Nosto::URL_PARAM_MESSAGE_TEXT => $e->getMessage()
                     )
                 );
                 return;
@@ -91,9 +84,9 @@ trait OauthTrait
             self::logError(new Exception($logMsg));
             self::redirect(
                 array(
-                    Nosto::URL_PARAM_MESSAGE_TYPE => Nosto::TYPE_ERROR,
-                    Nosto::URL_PARAM_MESSAGE_CODE => Nosto::CODE_ACCOUNT_CONNECT,
-                    Nosto::URL_PARAM_MESSAGE_TEXT => $desc
+                    Nosto_Nosto::URL_PARAM_MESSAGE_TYPE => Nosto_Nosto::TYPE_ERROR,
+                    Nosto_Nosto::URL_PARAM_MESSAGE_CODE => Nosto_Nosto::CODE_ACCOUNT_CONNECT,
+                    Nosto_Nosto::URL_PARAM_MESSAGE_TEXT => $desc
                 )
             );
         } else {
@@ -105,7 +98,7 @@ trait OauthTrait
 
     public abstract function getMeta();
 
-    public abstract function save(AccountInterface $account);
+    public abstract function save(Nosto_Types_Signup_AccountInterface $account);
 
     public abstract function redirect(array $params);
 

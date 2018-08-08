@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\Types\ExchangeRateInterface;
 
 /**
  * Collection class to store a collection of exchange-rates
  */
-class ExchangeRateCollection extends AbstractObject
+class Nosto_Object_ExchangeRateCollection extends Nosto_AbstractObject
 {
     /**
      * @var array the array if exchange rates keyed by the rate code
@@ -53,9 +50,9 @@ class ExchangeRateCollection extends AbstractObject
      * Adds an exchange rate to the array of rates
      *
      * @param $name string the name of the exchange rate
-     * @param ExchangeRateInterface $rate the exchange-rate object
+     * @param Nosto_Types_ExchangeRateInterface $rate the exchange-rate object
      */
-    public function addRate($name, ExchangeRateInterface $rate)
+    public function addRate($name, Nosto_Types_ExchangeRateInterface $rate)
     {
         $this->rates[$name] = $rate;
     }

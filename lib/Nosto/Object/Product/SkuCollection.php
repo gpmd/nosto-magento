@@ -34,23 +34,19 @@
  *
  */
 
-namespace Nosto\Object\Product;
 
-use Nosto\Object\AbstractCollection;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Product\SkuInterface;
 
 /**
  * Collection class to store a collection of SKUs
  */
-class SkuCollection extends AbstractCollection implements MarkupableInterface
+class Nosto_Object_Product_SkuCollection extends Nosto_Object_AbstractCollection implements Nosto_Types_MarkupableInterface
 {
     /**
      * Appends item to the collection of skus
      *
-     * @param SkuInterface $sku the product to append
+     * @param Nosto_Types_Product_SkuInterface $sku the product to append
      */
-    public function append(SkuInterface $sku)
+    public function append(Nosto_Types_Product_SkuInterface $sku)
     {
         $this->var[] = $sku;
     }

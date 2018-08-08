@@ -34,27 +34,23 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use phpseclib\Crypt\AES;
-use phpseclib\Crypt\Base;
-use phpseclib\Crypt\Random;
 
 /**
  * Implementation for the export helper
  */
-class ExportHelper extends AbstractExportHelper
+class Nosto_Helper_ExportHelper extends Nosto_Helper_AbstractExportHelper
 {
     /**
      * @inheritdoc
      */
     public function encrypt($secret, $data)
     {
-        $iv = Random::string(16);
-        $cipher = new AES(Base::MODE_CBC);
+        $iv = Nosto_Seclib_Crypt_Random::string(16);
+        $cipher = new Nosto_Seclib_Crypt_AES(Nosto_Seclib_Crypt_Base::MODE_CBC);
         $cipher->setKey($secret);
         $cipher->setIV($iv);
-        $cipherText = $cipher->encrypt(SerializationHelper::serialize($data));
+        $cipherText = $cipher->encrypt(Nosto_Helper_SerializationHelper::serialize($data));
         // Prepend the IV to the cipher string so that nosto can parse and use it.
         // There is no security concern with sending the IV as plain text.
         $data = $iv . $cipherText;

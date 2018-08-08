@@ -34,10 +34,7 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\AbstractObject;
-use Nosto\Types\SettingsInterface;
 
 /**
  * Model class for containing basic account account related information used when
@@ -45,7 +42,7 @@ use Nosto\Types\SettingsInterface;
  * used when creating an account as information contained in this model is considered to
  * be settings that may change over time.
  */
-class Settings extends AbstractObject implements SettingsInterface
+class Nosto_Object_Settings extends Nosto_AbstractObject implements Nosto_Types_SettingsInterface
 {
     /**
      * @var string the name of the store to be used for identifying accounts

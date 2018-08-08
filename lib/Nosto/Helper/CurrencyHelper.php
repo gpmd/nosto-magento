@@ -34,9 +34,7 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\NostoException;
 
 /**
  * Static data object with currency related info.
@@ -44,7 +42,7 @@ use Nosto\NostoException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  * @codeCoverageIgnore
  */
-final class CurrencyHelper extends AbstractHelper
+final class Nosto_Helper_CurrencyHelper extends Nosto_Helper_AbstractHelper
 {
     /**
      * @var array currency data keyed on the currencies ISO 4217 codes.
@@ -1138,7 +1136,7 @@ final class CurrencyHelper extends AbstractHelper
      *
      * @param string $code the currency code.
      * @return int the currency fraction unit.
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     public static function getFractionUnit($code)
     {
@@ -1150,12 +1148,12 @@ final class CurrencyHelper extends AbstractHelper
      * Asserts that the currency code is supported.
      *
      * @param string $code the currency code to test.
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     private static function assertCurrency($code)
     {
         if (!isset(self::$data[$code])) {
-            throw new NostoException(sprintf(
+            throw new Nosto_NostoException(sprintf(
                 'Currency (%s) must be one of the following ISO 4217 codes: "%s".',
                 $code,
                 implode('", "', array_keys(self::$data))
@@ -1168,7 +1166,7 @@ final class CurrencyHelper extends AbstractHelper
      *
      * @param string $code the currency code.
      * @return int the currency fraction digit.
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     public static function getFractionDecimals($code)
     {

@@ -34,15 +34,13 @@
  *
  */
 
-namespace Nosto\Types\Signup;
 
-use Nosto\Types\PersonInterface;
 
 /**
  * Interface for the account owner details.
- * This is used by the SignupInterface meta data model when creating new Nosto accounts.
+ * This is used by the Nosto_Types_Signup_SignupInterface meta data model when creating new Nosto accounts.
  */
-interface OwnerInterface extends PersonInterface
+interface Nosto_Types_Signup_OwnerInterface extends Nosto_Types_PersonInterface
 {
 
 }
