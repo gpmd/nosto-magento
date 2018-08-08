@@ -34,14 +34,12 @@
  *
  */
 
-namespace Nosto\Request\Http\Adapter;
 
-use Nosto\Request\Http\HttpResponse;
 
 /**
  * Base class for all http request adapters.
  */
-abstract class Adapter
+abstract class Nosto_Request_Http_Adapter_Adapter
 {
     const CRLF = "\r\n";
 
@@ -86,7 +84,7 @@ abstract class Adapter
      *
      * @param string $url the URL to request.
      * @param array $options the request options.
-     * @return HttpResponse the response object.
+     * @return Nosto_Request_Http_HttpResponse the response object.
      */
     abstract public function get($url, array $options = array());
 
@@ -95,7 +93,7 @@ abstract class Adapter
      *
      * @param string $url the URL to request.
      * @param array $options the request options.
-     * @return HttpResponse the response object.
+     * @return Nosto_Request_Http_HttpResponse the response object.
      */
     abstract public function post($url, array $options = array());
 
@@ -104,7 +102,7 @@ abstract class Adapter
      *
      * @param string $url the URL to request.
      * @param array $options the request options.
-     * @return HttpResponse the response object.
+     * @return Nosto_Request_Http_HttpResponse the response object.
      */
     abstract public function put($url, array $options = array());
 
@@ -113,7 +111,7 @@ abstract class Adapter
      *
      * @param string $url the URL to request.
      * @param array $options the request options.
-     * @return HttpResponse the response object.
+     * @return Nosto_Request_Http_HttpResponse the response object.
      */
     abstract public function delete($url, array $options = array());
 

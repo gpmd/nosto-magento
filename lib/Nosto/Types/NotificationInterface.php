@@ -34,14 +34,14 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for Nosto notification.
  * The client implements the "Authorization Code" OAuth2 spec.
  * @see https://tools.ietf.org/html/rfc6749
  */
-interface NotificationInterface
+interface Nosto_Types_NotificationInterface
 {
     /*
      * Notification severities

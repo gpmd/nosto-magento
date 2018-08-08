@@ -34,13 +34,11 @@
  *
  */
 
-namespace Nosto\Types\Order;
 
-use Nosto\Types\PersonInterface;
 
 /**
  * Interface for buyer information of an OrderConfirm.
  */
-interface BuyerInterface extends PersonInterface
+interface Nosto_Types_Order_BuyerInterface extends Nosto_Types_PersonInterface
 {
 }

@@ -34,17 +34,14 @@
  *
  */
 
-namespace Nosto\Object\Signup;
 
-use Nosto\AbstractObject;
-use Nosto\Types\Signup\BillingInterface;
 
 /**
  * Model class containing information for the billing details for the account used
  * during account-creation. The country code is used for deciding the billing
  * currency
  */
-class Billing extends AbstractObject implements BillingInterface
+class Nosto_Object_Signup_Billing extends Nosto_AbstractObject implements Nosto_Types_Signup_BillingInterface
 {
     /**
      * @var string the 2-letter ISO 3166-1 country code for the billing details

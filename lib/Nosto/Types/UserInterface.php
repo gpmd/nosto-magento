@@ -34,11 +34,11 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for the account owner details when creating new Nosto accounts.
  */
-interface UserInterface extends PersonInterface
+interface Nosto_Types_UserInterface extends Nosto_Types_PersonInterface
 {
 }

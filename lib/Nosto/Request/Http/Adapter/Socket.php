@@ -34,19 +34,16 @@
  *
  */
 
-namespace Nosto\Request\Http\Adapter;
 
-use Nosto\Request\Http\HttpRequest;
-use Nosto\Request\Http\HttpResponse;
 
 /**
- * Adapter class for making http requests using php sockets and uses file_get_contents()
+ * Nosto_Request_Http_Adapter_Adapter class for making http requests using php sockets and uses file_get_contents()
  * and stream_context_create() for creating http requests.
  *
  * Note that if php is compiled with "--with-curlwrappers" then headers are not sent
  * properly in older php versions. @link https://bugs.php.net/bug.php?id=55438
  */
-class Socket extends Adapter
+class Nosto_Request_Http_Adapter_Socket extends Nosto_Request_Http_Adapter_Adapter
 {
     const HEADER = 'header';
     const METHOD = 'method';
@@ -80,7 +77,7 @@ class Socket extends Adapter
             $url,
             array(
                 self::HTTP => array(
-                    self::METHOD => HttpRequest::METHOD_GET,
+                    self::METHOD => Nosto_Request_Http_HttpRequest::METHOD_GET,
                     self::HEADER => implode(self::CRLF, $this->getHeaders()),
                     // Fetch the content even on failure status codes.
                     self::IGNORE => true,
@@ -90,11 +87,11 @@ class Socket extends Adapter
     }
 
     /**
-     * Sends the request and creates a HttpResponse instance containing the response headers and body.
+     * Sends the request and creates a Nosto_Request_Http_HttpResponse instance containing the response headers and body.
      *
      * @param string $url the url for the request.
      * @param array $streamOptions options for stream_context_create().
-     * @return HttpResponse
+     * @return Nosto_Request_Http_HttpResponse
      */
     protected function send($url, array $streamOptions)
     {
@@ -111,7 +108,7 @@ class Socket extends Adapter
         /** @noinspection PhpVariableNamingConventionInspection */
         $http_response_header = array();
         $result = @file_get_contents($url, false, $context);
-        return new HttpResponse($http_response_header, $result);
+        return new Nosto_Request_Http_HttpResponse($http_response_header, $result);
     }
 
     /**
@@ -124,7 +121,7 @@ class Socket extends Adapter
             $url,
             array(
                 self::HTTP => array(
-                    self::METHOD => HttpRequest::METHOD_POST,
+                    self::METHOD => Nosto_Request_Http_HttpRequest::METHOD_POST,
                     self::HEADER => implode(self::CRLF, $this->getHeaders()),
                     self::CONTENT => $this->getContent(),
                     // Fetch the content even on failure status codes.
@@ -144,7 +141,7 @@ class Socket extends Adapter
             $url,
             array(
                 self::HTTP => array(
-                    self::METHOD => HttpRequest::METHOD_PUT,
+                    self::METHOD => Nosto_Request_Http_HttpRequest::METHOD_PUT,
                     self::HEADER => implode(self::CRLF, $this->getHeaders()),
                     self::CONTENT => $this->getContent(),
                     // Fetch the content even on failure status codes.
@@ -164,7 +161,7 @@ class Socket extends Adapter
             $url,
             array(
                 self::HTTP => array(
-                    self::METHOD => HttpRequest::METHOD_DELETE,
+                    self::METHOD => Nosto_Request_Http_HttpRequest::METHOD_DELETE,
                     self::HEADER => implode(self::CRLF, $this->getHeaders()),
                     // Fetch the content even on failure status codes.
                     self::IGNORE => true,

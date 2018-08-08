@@ -34,13 +34,13 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for the meta data of a exchange rate.
  * This is used when making product API requests for updating the exchange rate.
  */
-interface ExchangeRateInterface
+interface Nosto_Types_ExchangeRateInterface
 {
     /**
      * Getter for the exchange rates currencyCode code.

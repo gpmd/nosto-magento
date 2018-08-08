@@ -34,18 +34,13 @@
  *
  */
 
-namespace Nosto\Object\Order;
 
-use Nosto\Object\AbstractPerson;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Order\BuyerInterface;
-use Nosto\Types\SanitizableInterface;
 
 /**
  * Model used for containing the customer making an OrderConfirm/purchase. This information
  * creates a customer on Nosto.
  */
-class Buyer extends AbstractPerson implements BuyerInterface, MarkupableInterface, SanitizableInterface
+class Nosto_Object_Order_Buyer extends Nosto_Object_AbstractPerson implements Nosto_Types_Order_BuyerInterface, Nosto_Types_MarkupableInterface, Nosto_Types_SanitizableInterface
 {
     /**
      * @inheritdoc

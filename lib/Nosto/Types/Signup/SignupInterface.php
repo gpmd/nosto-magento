@@ -34,16 +34,12 @@
  *
  */
 
-namespace Nosto\Types\Signup;
 
-use Nosto\Request\Api\Token;
-use Nosto\Types\SettingsInterface;
-use stdClass;
 
 /**
  * Interface for the meta data model used when creating new Nosto accounts.
  */
-interface SignupInterface extends SettingsInterface
+interface Nosto_Types_Signup_SignupInterface extends Nosto_Types_SettingsInterface
 {
     /**
      * The name of the Nosto account.
@@ -71,14 +67,14 @@ interface SignupInterface extends SettingsInterface
     /**
      * Meta data model for the account owner who is creating the account.
      *
-     * @return OwnerInterface the meta data model.
+     * @return Nosto_Types_Signup_OwnerInterface the meta data model.
      */
     public function getOwner();
 
     /**
      * Meta data model for the account billing details.
      *
-     * @return BillingInterface the meta data model.
+     * @return Nosto_Types_Signup_BillingInterface the meta data model.
      */
     public function getBillingDetails();
 
@@ -86,7 +82,7 @@ interface SignupInterface extends SettingsInterface
      * The API token used to identify an account creation.
      * This token is platform specific and issued by Nosto.
      *
-     * @return Token the API token.
+     * @return Nosto_Request_Api_Token the API token.
      */
     public function getSignUpApiToken();
 

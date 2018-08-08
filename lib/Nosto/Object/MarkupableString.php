@@ -34,12 +34,9 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\Types\MarkupableInterface;
-use Nosto\AbstractObject;
 
-class MarkupableString extends AbstractObject implements MarkupableInterface
+class Nosto_Object_MarkupableString extends Nosto_AbstractObject implements Nosto_Types_MarkupableInterface
 {
     /** @var string the markup key in the html */
     protected $markupKey;
@@ -48,7 +45,7 @@ class MarkupableString extends AbstractObject implements MarkupableInterface
     protected $value;
 
     /**
-     * MarkupableString constructor.
+     * Nosto_Object_MarkupableString constructor.
      *
      * @param string $value
      * @param string $markupKey
@@ -59,9 +56,6 @@ class MarkupableString extends AbstractObject implements MarkupableInterface
         $this->markupKey = $markupKey;
     }
 
-    /**
-     * @return string the value
-     */
     public function getValue()
     {
         return $this->value;

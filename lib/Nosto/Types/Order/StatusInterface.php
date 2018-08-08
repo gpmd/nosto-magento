@@ -34,13 +34,13 @@
  *
  */
 
-namespace Nosto\Types\Order;
+
 
 /**
  * Interface for OrderConfirm status meta data.
- * This is used by the OrderInterface meta data model when sending OrderConfirm confirmation API requests.
+ * This is used by the Nosto_Types_Order_OrderInterface meta data model when sending OrderConfirm confirmation API requests.
  */
-interface StatusInterface
+interface Nosto_Types_Order_StatusInterface
 {
     /**
      * Returns the OrderConfirm status code.

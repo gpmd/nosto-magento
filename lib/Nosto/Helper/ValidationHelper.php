@@ -34,18 +34,15 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\NostoException;
-use Nosto\Types\ValidatableInterface;
 
 /**
  * Validator util that is used to validate `validatable` objects.
  */
-class ValidationHelper extends AbstractHelper
+class Nosto_Helper_ValidationHelper extends Nosto_Helper_AbstractHelper
 {
     /**
-     * @var ValidatableInterface the object to validate
+     * @var Nosto_Types_ValidatableInterface the object to validate
      */
     private $object;
 
@@ -58,9 +55,9 @@ class ValidationHelper extends AbstractHelper
      * Constructor.
      * Creates a new validator for the object to validate.
      *
-     * @param ValidatableInterface $object the object to validate.
+     * @param Nosto_Types_ValidatableInterface $object the object to validate.
      */
-    public function __construct(ValidatableInterface $object)
+    public function __construct(Nosto_Types_ValidatableInterface $object)
     {
         $this->object = $object;
     }
@@ -69,7 +66,7 @@ class ValidationHelper extends AbstractHelper
      * Validates the `validatable` object based on it's validation rules.
      *
      * @return bool true if the object is valid, false otherwise.
-     * @throws NostoException if the rule validator is not found.
+     * @throws Nosto_NostoException if the rule validator is not found.
      */
     public function validate()
     {
@@ -79,7 +76,7 @@ class ValidationHelper extends AbstractHelper
                 $properties = $rule[0];
                 $validator = 'validate' . $rule[1];
                 if (!method_exists($this, $validator)) {
-                    throw new NostoException(sprintf(
+                    throw new Nosto_NostoException(sprintf(
                         'Nosto validator "%s" does not exist.',
                         $validator
                     ));
@@ -120,7 +117,7 @@ class ValidationHelper extends AbstractHelper
      *
      * @param array $properties the list of property names to validate.
      * @return bool true if all are valid, false otherwise.
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     protected function validateRequired(array $properties)
     {
@@ -155,7 +152,7 @@ class ValidationHelper extends AbstractHelper
      * @param array $properties the list of properties to validate.
      * @param array $values the list of valid values the properties must
      * @return bool true if all are valid, false otherwise.
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     protected function validateIn(array $properties, array $values)
     {
@@ -185,13 +182,13 @@ class ValidationHelper extends AbstractHelper
      *
      * @param $property
      * @return mixed
-     * @throws NostoException
+     * @throws Nosto_NostoException
      */
     protected function getPropertyValue($property)
     {
         $getter = sprintf('get%s', $property);
         if (!method_exists($this->object, $getter)) {
-            throw new NostoException(
+            throw new Nosto_NostoException(
                 'Class %s does not have getter for property %s',
                 get_class($this->object),
                 $property

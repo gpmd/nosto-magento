@@ -34,15 +34,12 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\UserInterface;
 
 /**
- * Customer object for tagging
+ * Nosto_Object_Customer object for tagging
  */
-class Customer extends User implements UserInterface, MarkupableInterface
+class Nosto_Object_Customer extends Nosto_Object_User implements Nosto_Types_UserInterface, Nosto_Types_MarkupableInterface
 {
     /**
      * @var string customer reference

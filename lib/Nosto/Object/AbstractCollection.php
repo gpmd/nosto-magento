@@ -34,18 +34,14 @@
  *
  */
 
-namespace Nosto\Object;
 
-use Countable;
-use Iterator;
-use Nosto\Helper\SerializationHelper;
 
 /**
  * Base class for all Nosto object collection classes. The base class provides the
  * functionality to validate the items added to the collection. The collection behaves
  * like an array. making it easy to add items to it and iterate over it.
  */
-abstract class AbstractCollection implements Iterator, Countable
+abstract class Nosto_Object_AbstractCollection implements Iterator, Countable
 {
 
     protected $var = array();
@@ -107,6 +103,6 @@ abstract class AbstractCollection implements Iterator, Countable
      */
     public function toJson()
     {
-        return SerializationHelper::serialize($this);
+        return Nosto_Helper_SerializationHelper::serialize($this);
     }
 }

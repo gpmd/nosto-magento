@@ -34,14 +34,14 @@
  *
  */
 
-namespace Nosto\Types;
+
 
 /**
  * Interface for the OAuth2 client.
  * The client implements the "Authorization Code" OAuth2 spec.
  * @see https://tools.ietf.org/html/rfc6749
  */
-interface OAuthInterface
+interface Nosto_Types_OAuthInterface
 {
     /**
      * The OAuth2 client ID.

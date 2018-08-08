@@ -34,22 +34,19 @@
  *
  */
 
-namespace Nosto\Object\Order;
 
-use Nosto\Object\AbstractCollection;
-use Nosto\Types\Order\OrderInterface;
 
 /**
  * Collection class to store a collection of orders.
  */
-class OrderCollection extends AbstractCollection
+class Nosto_Object_Order_OrderCollection extends Nosto_Object_AbstractCollection
 {
     /**
      * Appends an OrderConfirm to the collection of orders
      *
-     * @param OrderInterface $order the OrderConfirm to append
+     * @param Nosto_Types_Order_OrderInterface $order the OrderConfirm to append
      */
-    public function append(OrderInterface $order)
+    public function append(Nosto_Types_Order_OrderInterface $order)
     {
         $this->var[] = $order;
     }

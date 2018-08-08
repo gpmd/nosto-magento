@@ -34,17 +34,12 @@
  *
  */
 
-namespace Nosto\Object\Product;
 
-use Nosto\AbstractObject;
-use Nosto\Types\MarkupableInterface;
-use Nosto\Types\Product\ProductInterface;
-use Nosto\Types\Product\VariationInterface;
 
 /**
  * Model for variation information
  */
-class Variation extends AbstractObject implements VariationInterface, MarkupableInterface
+class Nosto_Object_Product_Variation extends Nosto_AbstractObject implements Nosto_Types_Product_VariationInterface, Nosto_Types_MarkupableInterface
 {
 
     /**
@@ -75,7 +70,7 @@ class Variation extends AbstractObject implements VariationInterface, Markupable
 
     /**
      * Availability of the variation
-     * @see VariationInterface
+     * @see Nosto_Types_Product_VariationInterface
      * @var string
      */
     private $availability;
@@ -163,7 +158,7 @@ class Variation extends AbstractObject implements VariationInterface, Markupable
     public function setAvailable($available)
     {
         $this->availability = $available ?
-            ProductInterface::IN_STOCK : ProductInterface::OUT_OF_STOCK;
+            Nosto_Types_Product_ProductInterface::IN_STOCK : Nosto_Types_Product_ProductInterface::OUT_OF_STOCK;
     }
 
     /**

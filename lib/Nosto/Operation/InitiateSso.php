@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,46 +28,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\Nosto;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Types\UserInterface;
-use Nosto\Request\Http\Exception\AbstractHttpException;
-use Nosto\NostoException;
 
 /**
- * Operation class for fetching a single-sign-on link through the Nosto API.
+ * Operation class for fetching a single-sign-on link through the Nosto_Nosto API.
  * The operation results in a single-use URL that can be used for logging in
- * to the Nosto administration interface.
+ * to the Nosto_Nosto administration interface.
  */
-class InitiateSso extends AbstractAuthenticatedOperation
+class Nosto_Operation_InitiateSso extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
      * Sends a POST request to get a single sign-on URL for a store
      *
-     * @param UserInterface $user
+     * @param Nosto_Types_UserInterface $user
      * @param $platform
      * @return string the sso URL if the request was successful.
-     * @throws NostoException
-     * @throws AbstractHttpException
+     * @throws Nosto_NostoException
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
-    public function get(UserInterface $user, $platform)
+    public function get(Nosto_Types_UserInterface $user, $platform)
     {
-        $request = $this->initHttpRequest($this->account->getApiToken(Token::API_SSO));
-        $request->setPath(ApiRequest::PATH_SSO_AUTH);
+        $request = $this->initHttpRequest($this->account->getApiToken(Nosto_Request_Api_Token::API_SSO));
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_SSO_AUTH);
         $request->setContentType(self::CONTENT_TYPE_APPLICATION_JSON);
         $request->setReplaceParams(array('{platform}' => $platform));
         $response = $request->post($user);
         if ($response->getCode() !== 200) {
-            Nosto::throwHttpException($request, $response);
+            Nosto_Nosto::throwHttpException($request, $response);
         }
 
         return $response->getJsonResult()->login_url;

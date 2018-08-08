@@ -34,15 +34,7 @@
  *
  */
 
-namespace Nosto\Operation;
 
-use Nosto\NostoException;
-use Nosto\Object\Product\ProductCollection;
-use Nosto\Request\Api\ApiRequest;
-use Nosto\Request\Api\Token;
-use Nosto\Request\Http\Exception\AbstractHttpException;
-use Nosto\Types\Product\ProductInterface;
-use Nosto\Types\Signup\AccountInterface;
 
 /**
  * Operation class for upserting and deleting products through the Nosto API.
@@ -50,30 +42,30 @@ use Nosto\Types\Signup\AccountInterface;
  * it does, while a product delete also results in an upsert but flags the
  * product's availability as 'Discontinued'
  */
-class UpsertProduct extends AbstractAuthenticatedOperation
+class Nosto_Operation_UpsertProduct extends Nosto_Operation_AbstractAuthenticatedOperation
 {
     /**
-     * @var ProductCollection collection object of products to perform the operation on.
+     * @var Nosto_Object_Product_ProductCollection collection object of products to perform the operation on.
      */
     private $collection;
 
     /**
      * Constructor.
      *
-     * @param AccountInterface $account the account object.
+     * @param Nosto_Types_Signup_AccountInterface $account the account object.
      */
-    public function __construct(AccountInterface $account)
+    public function __construct(Nosto_Types_Signup_AccountInterface $account)
     {
         parent::__construct($account);
-        $this->collection = new ProductCollection();
+        $this->collection = new Nosto_Object_Product_ProductCollection();
     }
 
     /**
      * Adds a product tho the collection on which the operation is the performed.
      *
-     * @param ProductInterface $product
+     * @param Nosto_Types_Product_ProductInterface $product
      */
-    public function addProduct(ProductInterface $product)
+    public function addProduct(Nosto_Types_Product_ProductInterface $product)
     {
         $this->collection->append($product);
     }
@@ -82,13 +74,13 @@ class UpsertProduct extends AbstractAuthenticatedOperation
      * Sends a POST request to create or update all the products currently in the collection.
      *
      * @return bool if the request was successful.
-     * @throws NostoException on failure.
-     * @throws AbstractHttpException
+     * @throws Nosto_NostoException on failure.
+     * @throws Nosto_Request_Http_Exception_AbstractHttpException
      */
     public function upsert()
     {
-        $request = $this->initApiRequest($this->account->getApiToken(Token::API_PRODUCTS));
-        $request->setPath(ApiRequest::PATH_PRODUCTS_UPSERT);
+        $request = $this->initApiRequest($this->account->getApiToken(Nosto_Request_Api_Token::API_PRODUCTS));
+        $request->setPath(Nosto_Request_Api_ApiRequest::PATH_PRODUCTS_UPSERT);
         $response = $request->post($this->collection);
         return $this->checkResponse($request, $response);
     }

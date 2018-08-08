@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,21 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto;
 
-use Nosto\Helper\HtmlMarkupSerializationHelper;
-use Nosto\Helper\SerializationHelper;
 
 /**
- * Base class for Nosto objects to share basic functionality.
+ * Base class for Nosto_Nosto objects to share basic functionality.
  */
-abstract class AbstractObject
+abstract class Nosto_AbstractObject
 {
     /**
      * Returns a protected/private property value by invoking it's public getter.
@@ -52,7 +49,7 @@ abstract class AbstractObject
      *
      * @param string $name the property name.
      * @return mixed the property value.
-     * @throws NostoException if a public getter does not exist.
+     * @throws Nosto_NostoException if a public getter does not exist.
      */
     public function __get($name)
     {
@@ -60,7 +57,7 @@ abstract class AbstractObject
         if (method_exists($this, $getter)) {
             return $this->{$getter}();
         }
-        throw new NostoException(sprintf(
+        throw new Nosto_NostoException(sprintf(
             'Property `%s.%s` is not defined.',
             get_class($this),
             $name
@@ -74,7 +71,7 @@ abstract class AbstractObject
      */
     public function toHtml()
     {
-        return HtmlMarkupSerializationHelper::objectToMarkup($this, '', 0, 2);
+        return Nosto_Helper_HtmlMarkupSerializationHelper::objectToMarkup($this, '', 0, 2);
     }
 
     /**
@@ -84,6 +81,6 @@ abstract class AbstractObject
      */
     public function toJson()
     {
-        return SerializationHelper::serialize($this);
+        return Nosto_Helper_SerializationHelper::serialize($this);
     }
 }

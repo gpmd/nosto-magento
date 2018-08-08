@@ -34,13 +34,13 @@
  *
  */
 
-namespace Nosto\Types\Signup;
+
 
 /**
  * Interface for account billing details.
- * This is used by the SignupInterface meta data model when creating new Nosto accounts.
+ * This is used by the Nosto_Types_Signup_SignupInterface meta data model when creating new Nosto accounts.
  */
-interface BillingInterface
+interface Nosto_Types_Signup_BillingInterface
 {
     /**
      * The 2-letter ISO code (ISO 3166-1 alpha-2) for the country used in account's billing details.

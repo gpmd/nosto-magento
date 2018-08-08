@@ -34,14 +34,12 @@
  *
  */
 
-namespace Nosto\Types\Signup;
 
-use Nosto\Request\Api\Token;
 
 /**
  * Interface for the Nosto account model that handles creation, syncing and SSO access for the Nosto account.
  */
-interface AccountInterface
+interface Nosto_Types_Signup_AccountInterface
 {
     /**
      * Gets the account name.
@@ -76,14 +74,14 @@ interface AccountInterface
      * Gets an api token associated with this account by it's name , e.g. "sso".
      *
      * @param string $name the api token name.
-     * @return Token|null the token or null if not found.
+     * @return Nosto_Request_Api_Token|null the token or null if not found.
      */
     public function getApiToken($name);
 
     /**
      * Returns the account tokens.
      *
-     * @return Token[] the tokens.
+     * @return Nosto_Request_Api_Token[] the tokens.
      */
     public function getTokens();
 }

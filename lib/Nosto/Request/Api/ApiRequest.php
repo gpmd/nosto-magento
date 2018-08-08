@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017, Nosto Solutions Ltd
+ * Copyright (c) 2017, Nosto_Nosto Solutions Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,21 +28,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Nosto Solutions Ltd <contact@nosto.com>
- * @copyright 2017 Nosto Solutions Ltd
+ * @author Nosto_Nosto Solutions Ltd <contact@nosto.com>
+ * @copyright 2017 Nosto_Nosto Solutions Ltd
  * @license http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause
  *
  */
 
-namespace Nosto\Request\Api;
 
-use Nosto\Nosto;
-use Nosto\Request\Http\HttpRequest;
 
 /**
  * API request class for making API requests to Nosto.
  */
-class ApiRequest extends HttpRequest
+class Nosto_Request_Api_ApiRequest extends Nosto_Request_Http_HttpRequest
 {
     const PATH_ORDER_TAGGING = '/visits/order/confirm/{m}/{cid}';
     const PATH_UNMATCHED_ORDER_TAGGING = '/visits/order/unmatched/{m}';
@@ -64,6 +61,6 @@ class ApiRequest extends HttpRequest
      */
     public function setPath($path)
     {
-        $this->setUrl(Nosto::getApiBaseURL() . $path);
+        $this->setUrl(Nosto_Nosto::getApiBaseURL() . $path);
     }
 }

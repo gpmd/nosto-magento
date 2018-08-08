@@ -34,27 +34,25 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use Nosto\Types\Signup\AccountInterface;
 
 /**
  * Helper class for exporting historical product and OrderConfirm data from the shop. This
  * information is used to bootstrap recommendations and decreases the time needed to
  * get accurate recommendations showing in the shop without the learning period.
  */
-abstract class AbstractExportHelper
+abstract class Nosto_Helper_AbstractExportHelper
 {
     /**
      * Serializes the collection to JSON and uses the SSO token (as it is pre-shared
      * secret) to encrypt the data using AES. Sixteen random characters are used as
      * the IV and must be extracted out from the resultant payload before decrypting
      *
-     * @param AccountInterface $account the account to export the data for
+     * @param Nosto_Types_Signup_AccountInterface $account the account to export the data for
      * @param mixed $collection the data collection to export
      * @return string the AES encrypted data.
      */
-    public function export(AccountInterface $account, $collection)
+    public function export(Nosto_Types_Signup_AccountInterface $account, $collection)
     {
         $data = '';
         // Use the first 16 chars of the SSO token as secret for encryption.

@@ -34,18 +34,14 @@
  *
  */
 
-namespace Nosto\Helper;
 
-use ReflectionClass;
-use ReflectionException;
-use Traversable;
 
 /**
  * Helper class for serialize objects to JSON using a snake-case naming convention.
  * It is not necessary to use this class directly, as all operation classes
  * automatically use this helper to serialize objects to JSON
  */
-class SerializationHelper extends AbstractHelper
+class Nosto_Helper_SerializationHelper extends Nosto_Helper_AbstractHelper
 {
 
     public static function serialize($object)
@@ -95,7 +91,7 @@ class SerializationHelper extends AbstractHelper
             }
             $key = self::toSnakeCase($key);
             $value = $object->$getter();
-            if ($value instanceof \Iterator) {
+            if ($value instanceof Iterator) {
                 $value = iterator_to_array($value);
             }
             if (is_object($value)) {
